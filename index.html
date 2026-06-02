@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scout Rank — Requirements 1a–1f Study Guide</title>
+<title>Scout Study Guide — Rank Requirements & Totin' Chip</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -12,7 +12,11 @@
     --green-light: #2d9e5a;
     --green-pale: #e8f5ee;
     --amber: #c8821a;
+    --amber-dark: #7D5A00;
     --amber-pale: #fef3e2;
+    --brown: #5c3a1e;
+    --brown-pale: #f5ede3;
+    --brown-mid: #8b5e3c;
     --red-pale: #fdecea;
     --red: #c0392b;
     --text: #1a2e1e;
@@ -23,310 +27,103 @@
     --radius: 10px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
+  body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
   header {
     background: var(--green-dark);
     padding: 1.5rem 1.25rem 1.25rem;
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
-  header::before {
-    content: '';
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 140px; height: 140px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
+  header::before { content:''; position:absolute; top:-30px; right:-30px; width:140px; height:140px; border-radius:50%; background:rgba(255,255,255,0.04); }
+  header::after  { content:''; position:absolute; bottom:-20px; left:30px; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.03); }
+  .header-eyebrow { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green-light); margin-bottom:6px; }
+  header h1 { font-family:'Oswald',sans-serif; font-size:24px; font-weight:600; color:white; line-height:1.2; margin-bottom:6px; }
+  header p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.5; }
+  .progress-section { background:var(--white); border-bottom:1px solid var(--border); padding:1rem 1.25rem; position:sticky; top:0; z-index:100; }
+  .progress-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .progress-top span { font-size:13px; font-weight:500; color:var(--text-muted); }
+  .progress-top strong { font-family:'Oswald',sans-serif; font-size:15px; color:var(--green-mid); }
+  .pbar-track { height:7px; background:var(--green-pale); border-radius:99px; overflow:hidden; }
+  .pbar-fill { height:7px; background:var(--green-light); border-radius:99px; transition:width .4s ease; }
+  .section-tabs { display:flex; gap:0; background:var(--white); border-bottom:2px solid var(--border); }
+  .section-tab {
+    flex:1; font-family:'Oswald',sans-serif; font-size:13px; font-weight:500; letter-spacing:.03em;
+    padding:10px 6px; border:none; background:transparent; color:var(--text-muted); cursor:pointer;
+    border-bottom:3px solid transparent; margin-bottom:-2px; transition:all .18s; line-height:1.3;
   }
-  header::after {
-    content: '';
-    position: absolute;
-    bottom: -20px; left: 30px;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.03);
-  }
-  .header-eyebrow {
-    font-family: 'Oswald', sans-serif;
-    font-size: 11px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--green-light);
-    margin-bottom: 6px;
-  }
-  header h1 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 26px;
-    font-weight: 600;
-    color: white;
-    line-height: 1.15;
-    margin-bottom: 6px;
-  }
-  header p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.5;
-  }
-  .progress-section {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 1.25rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .progress-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
-  .progress-top span {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-  }
-  .progress-top strong {
-    font-family: 'Oswald', sans-serif;
-    font-size: 15px;
-    color: var(--green-mid);
-  }
-  .pbar-track {
-    height: 7px;
-    background: var(--green-pale);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .pbar-fill {
-    height: 7px;
-    background: var(--green-light);
-    border-radius: 99px;
-    transition: width .4s ease;
-  }
-  .mode-bar {
-    display: flex;
-    gap: 6px;
-    padding: .75rem 1.25rem;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-  }
-  .mode-btn {
-    flex: 1;
-    font-family: 'Oswald', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: .03em;
-    padding: 8px;
-    border-radius: var(--radius);
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all .18s;
-  }
-  .mode-btn.active {
-    background: var(--green-dark);
-    border-color: var(--green-dark);
-    color: white;
-  }
-  .main { padding: 1rem 1.25rem 3rem; }
-  .req-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .req-card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: .85rem 1rem;
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .req-badge {
-    font-family: 'Oswald', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    background: var(--green-dark);
-    color: white;
-    padding: 3px 9px;
-    border-radius: 6px;
-    flex-shrink: 0;
-    letter-spacing: .03em;
-  }
-  .req-card-title {
-    flex: 1;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.3;
-  }
-  .chevron {
-    font-size: 18px;
-    color: var(--text-muted);
-    transition: transform .2s;
-    flex-shrink: 0;
-  }
-  .req-card.open .chevron { transform: rotate(180deg); }
-  .req-card-body {
-    display: none;
-    border-top: 1px solid var(--border);
-    padding: 1rem;
-  }
-  .req-card.open .req-card-body { display: block; }
-  .content-block { margin-bottom: 14px; }
-  .content-label {
-    font-family: 'Oswald', sans-serif;
-    font-size: 11px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--green-mid);
-    margin-bottom: 5px;
-    font-weight: 500;
-  }
-  .content-text {
-    background: var(--green-pale);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text);
-    white-space: pre-line;
-  }
-  .tip-box {
-    background: var(--amber-pale);
-    border-left: 3px solid var(--amber);
-    border-radius: 0 8px 8px 0;
-    padding: 9px 12px;
-    font-size: 13px;
-    line-height: 1.55;
-    color: #5a3a00;
-    margin-bottom: 14px;
-  }
-  .tip-label {
-    font-family: 'Oswald', sans-serif;
-    font-size: 11px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 3px;
-    font-weight: 500;
-  }
-  .mark-btn {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all .18s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-  .mark-btn.done {
-    background: var(--green-pale);
-    border-color: var(--green-light);
-    color: var(--green-dark);
-  }
-  .done-check { font-size: 16px; }
-  /* Quiz mode */
-  .quiz-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    padding: 1rem;
-  }
-  .quiz-badge-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .quiz-q {
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
-  .reveal-btn {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1.5px solid var(--green-mid);
-    background: transparent;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--green-mid);
-    cursor: pointer;
-    transition: all .18s;
-    margin-bottom: 0;
-  }
-  .reveal-btn:active { background: var(--green-pale); }
-  .answer-area { display: none; margin-top: 10px; }
-  .answer-area.shown { display: block; }
-  .knew-row { display: flex; gap: 8px; margin-top: 10px; }
-  .knew-btn {
-    flex: 1;
-    padding: 9px 6px;
-    border-radius: 8px;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all .18s;
-  }
-  .knew-btn.yes { color: var(--green-mid); }
-  .knew-btn.no { color: var(--red); }
-  .knew-btn.sel-yes { background: var(--green-pale); border-color: var(--green-light); color: var(--green-dark); }
-  .knew-btn.sel-no { background: var(--red-pale); border-color: #e08080; color: var(--red); }
-  .complete-banner {
-    background: var(--green-dark);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    text-align: center;
-    margin-bottom: 12px;
-    color: white;
-  }
-  .complete-banner .icon { font-size: 28px; margin-bottom: 6px; }
-  .complete-banner p { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
-  .complete-banner span { font-size: 13px; color: rgba(255,255,255,.65); }
-  .req-card.done-card { border-color: var(--green-light); }
-  .req-card.done-card .req-card-header { background: var(--green-pale); }
+  .section-tab.active { color:var(--green-dark); border-bottom-color:var(--green-mid); }
+  .section-tab.totin.active { color:var(--brown); border-bottom-color:var(--brown-mid); }
+  .mode-bar { display:flex; gap:6px; padding:.75rem 1.25rem; background:var(--white); border-bottom:1px solid var(--border); }
+  .mode-btn { flex:1; font-family:'Oswald',sans-serif; font-size:14px; font-weight:500; letter-spacing:.03em; padding:8px; border-radius:var(--radius); border:1.5px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; transition:all .18s; }
+  .mode-btn.active { background:var(--green-dark); border-color:var(--green-dark); color:white; }
+  .mode-btn.active.totin-mode { background:var(--brown); border-color:var(--brown); }
+  .main { padding:1rem 1.25rem 3rem; }
+  .notice-box { background:var(--brown-pale); border-left:3px solid var(--brown-mid); border-radius:0 8px 8px 0; padding:10px 12px; font-size:13px; line-height:1.55; color:var(--brown); margin-bottom:14px; }
+  .notice-label { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--brown-mid); margin-bottom:3px; font-weight:500; }
+  .req-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; overflow:hidden; }
+  .req-card-header { display:flex; align-items:center; gap:10px; padding:.85rem 1rem; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; }
+  .req-badge { font-family:'Oswald',sans-serif; font-size:13px; font-weight:600; background:var(--green-dark); color:white; padding:3px 9px; border-radius:6px; flex-shrink:0; letter-spacing:.03em; }
+  .req-badge.totin { background:var(--brown); }
+  .req-card-title { flex:1; font-size:14px; font-weight:500; color:var(--text); line-height:1.3; }
+  .chevron { font-size:18px; color:var(--text-muted); transition:transform .2s; flex-shrink:0; }
+  .req-card.open .chevron { transform:rotate(180deg); }
+  .req-card-body { display:none; border-top:1px solid var(--border); padding:1rem; }
+  .req-card.open .req-card-body { display:block; }
+  .content-block { margin-bottom:14px; }
+  .content-label { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--green-mid); margin-bottom:5px; font-weight:500; }
+  .content-label.totin { color:var(--brown-mid); }
+  .content-text { background:var(--green-pale); border-radius:8px; padding:10px 12px; font-size:14px; line-height:1.7; color:var(--text); white-space:pre-line; }
+  .content-text.totin { background:var(--brown-pale); }
+  .tip-box { background:var(--amber-pale); border-left:3px solid var(--amber); border-radius:0 8px 8px 0; padding:9px 12px; font-size:13px; line-height:1.55; color:#5a3a00; margin-bottom:14px; }
+  .tip-label { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber); margin-bottom:3px; font-weight:500; }
+  .mark-btn { width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:'Source Sans 3',sans-serif; font-size:14px; font-weight:500; color:var(--text-muted); cursor:pointer; transition:all .18s; display:flex; align-items:center; justify-content:center; gap:6px; }
+  .mark-btn.done { background:var(--green-pale); border-color:var(--green-light); color:var(--green-dark); }
+  .mark-btn.done.totin { background:var(--brown-pale); border-color:var(--brown-mid); color:var(--brown); }
+  .done-check { font-size:16px; }
+  .quiz-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; padding:1rem; }
+  .quiz-badge-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  .quiz-q { font-size:15px; font-weight:500; line-height:1.5; color:var(--text); margin-bottom:12px; }
+  .reveal-btn { width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--green-mid); background:transparent; font-family:'Source Sans 3',sans-serif; font-size:14px; font-weight:500; color:var(--green-mid); cursor:pointer; transition:all .18s; }
+  .reveal-btn.totin { border-color:var(--brown-mid); color:var(--brown-mid); }
+  .reveal-btn:active { background:var(--green-pale); }
+  .reveal-btn.totin:active { background:var(--brown-pale); }
+  .answer-area { display:none; margin-top:10px; }
+  .answer-area.shown { display:block; }
+  .knew-row { display:flex; gap:8px; margin-top:10px; }
+  .knew-btn { flex:1; padding:9px 6px; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:'Source Sans 3',sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:all .18s; }
+  .knew-btn.yes { color:var(--green-mid); }
+  .knew-btn.no  { color:var(--red); }
+  .knew-btn.sel-yes { background:var(--green-pale); border-color:var(--green-light); color:var(--green-dark); }
+  .knew-btn.sel-no  { background:var(--red-pale); border-color:#e08080; color:var(--red); }
+  .complete-banner { background:var(--green-dark); border-radius:var(--radius); padding:1.25rem; text-align:center; margin-bottom:12px; color:white; }
+  .complete-banner.totin { background:var(--brown); }
+  .complete-banner .icon { font-size:28px; margin-bottom:6px; }
+  .complete-banner p { font-family:'Oswald',sans-serif; font-size:18px; font-weight:600; margin-bottom:4px; }
+  .complete-banner span { font-size:13px; color:rgba(255,255,255,.65); }
+  .req-card.done-card { border-color:var(--green-light); }
+  .req-card.done-card.totin-card { border-color:var(--brown-mid); }
+  .req-card.done-card .req-card-header { background:var(--green-pale); }
+  .req-card.done-card.totin-card .req-card-header { background:var(--brown-pale); }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-eyebrow">Scouts BSA — Scout Rank</div>
-  <h1>Requirements<br>1a – 1f</h1>
-  <p>Study guide &amp; quiz. Learn all six, then get your Scoutmaster sign-off.</p>
+  <div class="header-eyebrow">Scouts BSA — Scout Rank & Totin' Chip</div>
+  <h1>Scout Study Guide</h1>
+  <p>Rank requirements 1a–1f &amp; Totin' Chip. Study, quiz yourself, then get your Scoutmaster sign-off.</p>
 </header>
 
 <div class="progress-section">
   <div class="progress-top">
-    <span>Progress</span>
+    <span id="prog-section-label">Scout Rank (1a–1f)</span>
     <strong id="prog-label">0 / 6 learned</strong>
   </div>
   <div class="pbar-track"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
+</div>
+
+<div class="section-tabs">
+  <button class="section-tab active" id="tab-rank" onclick="setSection('rank')">Scout Rank<br><span style="font-size:11px;font-weight:400">Requirements 1a–1f</span></button>
+  <button class="section-tab totin" id="tab-totin" onclick="setSection('totin')">Totin&#x27; Chip<br><span style="font-size:11px;font-weight:400">Woods tools certification</span></button>
 </div>
 
 <div class="mode-bar">
@@ -337,7 +134,7 @@
 <div class="main" id="main"></div>
 
 <script>
-const reqs = [
+const rankReqs = [
   {
     id:'1a', title:'Scout Oath, Law, Motto & Slogan',
     quiz:'Recite the Scout Oath, Scout Law, Scout Motto, and Scout Slogan from memory.',
@@ -399,10 +196,103 @@ const reqs = [
   }
 ];
 
+const totinReqs = [
+  {
+    id:'tc1', title:'Read & understand woods tools safety rules',
+    quiz:'Where do you find the woods tools safety rules, and what is the overall purpose of the Totin\' Chip?',
+    blocks:[
+      {label:'What to know', text:'Read the woods tools use and safety rules in the Scout BSA Handbook before your sign-off.'},
+      {label:'What the Totin\' Chip means', text:'The Totin\' Chip is a certification — like a license — that grants you the right to carry and use woods tools at camp and Scout activities. Without it, you cannot carry a pocketknife or use an ax or saw.\n\nYour "Totin\' Rights" can be taken away if you fail to handle tools safely.'},
+      {label:'The card system', text:'Some troops use a 4-corner card. A corner gets removed for each safety violation. Lose all 4 corners and you lose your Totin\' Rights until you retake the training.'},
+    ],
+    tip:'Know this cold before your sign-off: "The Totin\' Chip grants me the right to carry and use woods tools, and those rights can be taken away if I am unsafe."'
+  },
+  {
+    id:'tc2', title:'Pocketknife — safe handling & use',
+    quiz:'Demonstrate proper handling, care, and use of a pocketknife. What are the key safety rules?',
+    blocks:[
+      {label:'Key safety rules', text:'• Always cut AWAY from your body\n• Keep the blade closed when not in use\n• Pass a knife closed, or blade-first with the handle toward the other person\n• Never use a knife as a pry bar or screwdriver\n• Keep blades clean and sharp — dull blades slip and cause more injuries\n• Never throw a knife\n• No horseplay with any blade'},
+      {label:'Blood circle', text:'Before opening a knife, extend your arm and spin in a full circle. If you would hit anyone, you\'re too close to others. This is called your "blood circle" — clear it before cutting.'},
+      {label:'Sheath knives (hunting knives)', text:'Scouts BSA does NOT allow sheath knives at camp. Pocketknives only.'},
+    ],
+    tip:'The blood circle is the #1 thing leaders test. Practice doing it naturally — extend arm, turn, check, then open knife.'
+  },
+  {
+    id:'tc3', title:'Ax — safe handling & use',
+    quiz:'Demonstrate proper handling and use of an ax. What are the key safety rules?',
+    blocks:[
+      {label:'Key safety rules', text:'• Always keep the ax sheathed/covered when not in use\n• Inspect the ax head — make sure it is tight on the handle before use\n• Clear your blood circle before every swing\n• Choke up on the handle for short cuts; full grip for full swings\n• Never use an ax as a hammer\n• Kneel on one knee when splitting kindling — never hold wood upright in your hand\n• Two-hand grip at all times while swinging'},
+      {label:'Ax yard', text:'When chopping, set up an "ax yard" — a dedicated area cleared of people. Only the person using the ax may be inside the ax yard.'},
+      {label:'Passing the ax', text:'Always pass an ax with the head down, handle toward the other person, and announce "ax coming."'},
+    ],
+    tip:'Leaders want to see that you treat the ax with respect — slow, deliberate movements, always checking your surroundings before swinging.'
+  },
+  {
+    id:'tc4', title:'Saw — safe handling & use',
+    quiz:'Demonstrate proper handling and use of a folding saw. What are the key safety rules?',
+    blocks:[
+      {label:'Key safety rules', text:'• Keep the saw folded or sheathed when not in use\n• Never touch the teeth — they are extremely sharp\n• Use smooth, even strokes — don\'t force it\n• Let the saw do the work; pressing too hard causes binding and slipping\n• Secure the wood before cutting — never hold it free-hand\n• Keep fingers and body clear of the cutting line'},
+      {label:'Proper technique', text:'Start the cut with a few light pull strokes to create a groove, then use full strokes. Keep your free hand well away from the blade path.'},
+    ],
+    tip:'The saw feels safer than the ax but causes more accidental injuries because people get careless. Slow and steady always.'
+  },
+  {
+    id:'tc5', title:'Tools as tools, not playthings',
+    quiz:'Explain what it means to use knife, ax, and saw as tools — not playthings.',
+    blocks:[
+      {label:'What it means', text:'Woods tools are for camp tasks — cutting rope, preparing firewood, carving, clearing brush. They are never to be used for:\n• Throwing at targets\n• Showing off or daring others\n• Whittling aimlessly without purpose\n• Threatening or intimidating anyone'},
+      {label:'The mindset', text:'A Scout with a knife or ax is responsible for every swing, every cut, and everyone nearby. Treat every tool as if it could cause serious injury — because it can.'},
+    ],
+    tip:'This one is more about attitude than memorization. Leaders are watching how you carry yourself around tools all day, not just during the sign-off.'
+  },
+  {
+    id:'tc6', title:'Respect safety rules & protect others',
+    quiz:'What does it mean to respect all safety rules and protect others when using woods tools?',
+    blocks:[
+      {label:'Protecting others', text:'• Always know where other people are before using any tool\n• Never rush with a blade — take your time\n• Speak up if you see someone else being unsafe\n• Set a good example — other Scouts will follow what you do'},
+      {label:'Your responsibility', text:'The Totin\' Chip is a privilege. If you see unsafe tool use — whether it\'s you or someone else — stop. It\'s always better to slow down and be safe than to finish fast and get hurt.'},
+    ],
+    tip:'Scouts who earn respect with tools are the ones who move SLOWLY and deliberately. Speed is never the goal.'
+  },
+  {
+    id:'tc7', title:'Respect property & the Outdoor Code',
+    quiz:'Explain what it means to respect property when using woods tools, and how the Outdoor Code applies.',
+    blocks:[
+      {label:'Respecting property', text:'• Cut living trees only with permission AND a good reason\n• Dead trees may be used for firewood where permitted — but ask first\n• Never carve into picnic tables, shelters, or other structures\n• Leave the area cleaner than you found it — collect all wood scraps and chips'},
+      {label:'Outdoor Code connection', text:'The Outdoor Code calls you to be conservation-minded. Using an ax or saw on living trees without a good reason violates that pledge directly.\n\nAs an American, I will do my best to — Be clean in my outdoor manners, Be careful with fire, Be considerate in the outdoors, and Be conservation-minded.'},
+    ],
+    tip:'At camp, always ask a leader before cutting any tree — living or dead. "I asked permission first" is always the right answer.'
+  },
+];
+
+let section = 'rank';
 let mode = 'study';
-const learned = {};
-const quizState = {};
-reqs.forEach(r => { learned[r.id] = false; quizState[r.id] = {shown:false, knew:null}; });
+
+const learnedRank  = {};
+const learnedTotin = {};
+const quizRank     = {};
+const quizTotin    = {};
+rankReqs.forEach(r  => { learnedRank[r.id]  = false; quizRank[r.id]  = {shown:false, knew:null}; });
+totinReqs.forEach(r => { learnedTotin[r.id] = false; quizTotin[r.id] = {shown:false, knew:null}; });
+
+function activeReqs()   { return section==='rank' ? rankReqs   : totinReqs; }
+function activeLearned(){ return section==='rank' ? learnedRank : learnedTotin; }
+function activeQuiz()   { return section==='rank' ? quizRank   : quizTotin; }
+function isTotin()      { return section==='totin'; }
+
+function setSection(s) {
+  section = s;
+  document.getElementById('tab-rank').classList.toggle('active', s==='rank');
+  document.getElementById('tab-totin').classList.toggle('active', s==='totin');
+  document.getElementById('tab-rank').classList.remove('totin');
+  document.getElementById('tab-totin').classList.toggle('totin', true);
+  const studyBtn = document.getElementById('btn-study');
+  const quizBtn  = document.getElementById('btn-quiz');
+  studyBtn.classList.toggle('totin-mode', s==='totin');
+  quizBtn.classList.toggle('totin-mode', s==='totin');
+  updateProgress();
+  render();
+}
 
 function setMode(m) {
   mode = m;
@@ -412,10 +302,14 @@ function setMode(m) {
 }
 
 function updateProgress() {
-  const n = Object.values(learned).filter(Boolean).length;
-  const pct = Math.round(n/reqs.length*100);
+  const learned = activeLearned();
+  const reqs    = activeReqs();
+  const n   = Object.values(learned).filter(Boolean).length;
+  const tot = reqs.length;
+  const pct = Math.round(n/tot*100);
   document.getElementById('pbar').style.width = pct+'%';
-  document.getElementById('prog-label').textContent = n+' / '+reqs.length+' learned';
+  document.getElementById('prog-label').textContent = n+' / '+tot+' learned';
+  document.getElementById('prog-section-label').textContent = isTotin() ? 'Totin\' Chip' : 'Scout Rank (1a\u20131f)';
 }
 
 function toggleCard(id) {
@@ -424,79 +318,86 @@ function toggleCard(id) {
 }
 
 function markLearned(id) {
-  learned[id] = !learned[id];
-  updateProgress();
-  render();
+  activeLearned()[id] = !activeLearned()[id];
+  updateProgress(); render();
 }
 
 function revealAnswer(id) {
-  quizState[id].shown = true;
-  render();
+  activeQuiz()[id].shown = true; render();
 }
 
 function markKnew(id, val) {
-  quizState[id].knew = val;
-  learned[id] = val;
-  updateProgress();
-  render();
+  activeQuiz()[id].knew = val;
+  activeLearned()[id] = val;
+  updateProgress(); render();
 }
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;'); }
-function nl(s){ return esc(s).replace(/\n/g,'<br>'); }
+function nl(s) { return esc(s).replace(/\n/g,'<br>'); }
 
 function render() {
-  const main = document.getElementById('main');
+  const main    = document.getElementById('main');
+  const reqs    = activeReqs();
+  const learned = activeLearned();
+  const quiz    = activeQuiz();
+  const totin   = isTotin();
   let html = '';
-  const allDone = Object.values(learned).every(Boolean);
+
+  const allDone = reqs.every(r => learned[r.id]);
+
+  if(totin) {
+    html += '<div class="notice-box"><div class="notice-label">Important — hands-on requirement</div>';
+    html += 'Requirements TC2, TC3, and TC4 require a live DEMONSTRATION to a Scout leader — you must physically show safe handling of knife, ax, and saw. This guide prepares you with the rules, but you\'ll need to demonstrate in person to earn your Totin\' Chip.';
+    html += '</div>';
+  }
 
   if(allDone) {
-    const allKnew = mode==='quiz' ? Object.values(quizState).every(s=>s.knew===true) : true;
-    html += '<div class="complete-banner">';
+    const allKnew = mode==='quiz' ? reqs.every(r => quiz[r.id].knew===true) : true;
+    html += '<div class="complete-banner'+(totin?' totin':'')+'">';
     html += '<div class="icon">&#9733;</div>';
-    html += '<p>'+(mode==='quiz'&&allKnew ? 'Ready for sign-off!' : 'All 6 studied!')+'</p>';
-    html += '<span>'+(mode==='quiz'&&allKnew ? 'You know all six cold. Time to find your Scoutmaster.' : mode==='quiz' ? 'Review the ones you missed, then try again.' : 'Switch to Quiz mode to test yourself.')+'</span>';
+    if(mode==='quiz'&&allKnew) { html += '<p>Ready for sign-off!</p><span>'+(totin?'You know all the rules — go find a leader to demonstrate the tools.':'You know all six cold. Time to find your Scoutmaster.')+'</span>'; }
+    else if(mode==='quiz')     { html += '<p>Keep practicing!</p><span>Review the ones you missed, then try again.</span>'; }
+    else                       { html += '<p>'+(totin?'All 7 sections studied!':'All 6 studied!')+'</p><span>Switch to Quiz mode to test yourself.</span>'; }
     html += '</div>';
   }
 
   if(mode==='study') {
     reqs.forEach(r => {
       const done = learned[r.id];
-      html += '<div class="req-card'+(done?' done-card':'')+'" id="card-'+r.id+'">';
+      html += '<div class="req-card'+(done?' done-card':'')+(totin?' totin-card':'')+'" id="card-'+r.id+'">';
       html += '<div class="req-card-header" onclick="toggleCard(\''+r.id+'\')">';
-      html += '<span class="req-badge">'+r.id+'</span>';
+      html += '<span class="req-badge'+(totin?' totin':'')+'">'+r.id+'</span>';
       html += '<span class="req-card-title">'+esc(r.title)+'</span>';
-      if(done) html += '<span style="color:#1a6b3a;font-size:18px">&#10003;</span>';
+      if(done) html += '<span style="color:'+(totin?'var(--brown-mid)':'#1a6b3a')+';font-size:18px">&#10003;</span>';
       html += '<span class="chevron">&#8964;</span>';
       html += '</div>';
       html += '<div class="req-card-body">';
       r.blocks.forEach(b => {
         html += '<div class="content-block">';
-        html += '<div class="content-label">'+esc(b.label)+'</div>';
-        html += '<div class="content-text">'+nl(b.text)+'</div>';
+        html += '<div class="content-label'+(totin?' totin':'')+'">'+esc(b.label)+'</div>';
+        html += '<div class="content-text'+(totin?' totin':'')+'">'+nl(b.text)+'</div>';
         html += '</div>';
       });
-      if(r.tip) {
-        html += '<div class="tip-box"><div class="tip-label">Memory tip</div>'+esc(r.tip)+'</div>';
-      }
-      html += '<button class="mark-btn'+(done?' done':'') +'" onclick="markLearned(\''+r.id+'\')">';
+      if(r.tip) html += '<div class="tip-box"><div class="tip-label">Tip</div>'+esc(r.tip)+'</div>';
+      html += '<button class="mark-btn'+(done?' done':'')+(totin&&done?' totin':'')+'" onclick="markLearned(\''+r.id+'\')">';
       html += done ? '<span class="done-check">&#10003;</span> Got it — mark incomplete' : 'Mark as learned';
       html += '</button>';
       html += '</div></div>';
     });
   } else {
     reqs.forEach(r => {
-      const qs = quizState[r.id];
+      const qs = quiz[r.id];
       html += '<div class="quiz-card">';
-      html += '<div class="quiz-badge-row"><span class="req-badge">'+r.id+'</span><span style="font-size:13px;color:#5a7060;font-weight:500">'+esc(r.title)+'</span></div>';
+      html += '<div class="quiz-badge-row"><span class="req-badge'+(totin?' totin':'')+'">'+r.id+'</span><span style="font-size:13px;color:'+(totin?'var(--brown-mid)':'#5a7060')+';font-weight:500">'+esc(r.title)+'</span></div>';
       html += '<div class="quiz-q">'+esc(r.quiz)+'</div>';
       if(!qs.shown) {
-        html += '<button class="reveal-btn" onclick="revealAnswer(\''+r.id+'\')">Say it out loud, then show answer</button>';
+        html += '<button class="reveal-btn'+(totin?' totin':'')+'" onclick="revealAnswer(\''+r.id+'\')">Say it out loud, then show answer</button>';
       } else {
         html += '<div class="answer-area shown">';
         r.blocks.forEach(b => {
           html += '<div class="content-block">';
-          html += '<div class="content-label">'+esc(b.label)+'</div>';
-          html += '<div class="content-text">'+nl(b.text)+'</div>';
+          html += '<div class="content-label'+(totin?' totin':'')+'">'+esc(b.label)+'</div>';
+          html += '<div class="content-text'+(totin?' totin':'')+'">'+nl(b.text)+'</div>';
           html += '</div>';
         });
         html += '<div class="knew-row">';
