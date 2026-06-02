@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scout Rank — Requirements 1a–1f Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #0a3d1f;
+    --green-mid: #1a6b3a;
+    --green-light: #2d9e5a;
+    --green-pale: #e8f5ee;
+    --amber: #c8821a;
+    --amber-pale: #fef3e2;
+    --red-pale: #fdecea;
+    --red: #c0392b;
+    --text: #1a2e1e;
+    --text-muted: #5a7060;
+    --border: #cde0d4;
+    --bg: #f4f9f5;
+    --white: #ffffff;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    background: var(--green-dark);
+    padding: 1.5rem 1.25rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 30px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .header-eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  header p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+  .progress-section {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .progress-top span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+  .progress-top strong {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    color: var(--green-mid);
+  }
+  .pbar-track {
+    height: 7px;
+    background: var(--green-pale);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .pbar-fill {
+    height: 7px;
+    background: var(--green-light);
+    border-radius: 99px;
+    transition: width .4s ease;
+  }
+  .mode-bar {
+    display: flex;
+    gap: 6px;
+    padding: .75rem 1.25rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+  .mode-btn {
+    flex: 1;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .03em;
+    padding: 8px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .mode-btn.active {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: white;
+  }
+  .main { padding: 1rem 1.25rem 3rem; }
+  .req-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .req-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .85rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .req-badge {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--green-dark);
+    color: white;
+    padding: 3px 9px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    letter-spacing: .03em;
+  }
+  .req-card-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .chevron {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  .req-card.open .chevron { transform: rotate(180deg); }
+  .req-card-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1rem;
+  }
+  .req-card.open .req-card-body { display: block; }
+  .content-block { margin-bottom: 14px; }
+  .content-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .content-text {
+    background: var(--green-pale);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    white-space: pre-line;
+  }
+  .tip-box {
+    background: var(--amber-pale);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 8px 8px 0;
+    padding: 9px 12px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #5a3a00;
+    margin-bottom: 14px;
+  }
+  .tip-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+  .mark-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all .18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .mark-btn.done {
+    background: var(--green-pale);
+    border-color: var(--green-light);
+    color: var(--green-dark);
+  }
+  .done-check { font-size: 16px; }
+  /* Quiz mode */
+  .quiz-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    padding: 1rem;
+  }
+  .quiz-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .quiz-q {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .reveal-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--green-mid);
+    background: transparent;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--green-mid);
+    cursor: pointer;
+    transition: all .18s;
+    margin-bottom: 0;
+  }
+  .reveal-btn:active { background: var(--green-pale); }
+  .answer-area { display: none; margin-top: 10px; }
+  .answer-area.shown { display: block; }
+  .knew-row { display: flex; gap: 8px; margin-top: 10px; }
+  .knew-btn {
+    flex: 1;
+    padding: 9px 6px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .knew-btn.yes { color: var(--green-mid); }
+  .knew-btn.no { color: var(--red); }
+  .knew-btn.sel-yes { background: var(--green-pale); border-color: var(--green-light); color: var(--green-dark); }
+  .knew-btn.sel-no { background: var(--red-pale); border-color: #e08080; color: var(--red); }
+  .complete-banner {
+    background: var(--green-dark);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+    margin-bottom: 12px;
+    color: white;
+  }
+  .complete-banner .icon { font-size: 28px; margin-bottom: 6px; }
+  .complete-banner p { font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .complete-banner span { font-size: 13px; color: rgba(255,255,255,.65); }
+  .req-card.done-card { border-color: var(--green-light); }
+  .req-card.done-card .req-card-header { background: var(--green-pale); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Scouts BSA — Scout Rank</div>
+  <h1>Requirements<br>1a – 1f</h1>
+  <p>Study guide &amp; quiz. Learn all six, then get your Scoutmaster sign-off.</p>
+</header>
+
+<div class="progress-section">
+  <div class="progress-top">
+    <span>Progress</span>
+    <strong id="prog-label">0 / 6 learned</strong>
+  </div>
+  <div class="pbar-track"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
+</div>
+
+<div class="mode-bar">
+  <button class="mode-btn active" id="btn-study" onclick="setMode('study')">Study</button>
+  <button class="mode-btn" id="btn-quiz" onclick="setMode('quiz')">Quiz me</button>
+</div>
+
+<div class="main" id="main"></div>
+
+<script>
+const reqs = [
+  {
+    id:'1a', title:'Scout Oath, Law, Motto & Slogan',
+    quiz:'Recite the Scout Oath, Scout Law, Scout Motto, and Scout Slogan from memory.',
+    blocks:[
+      {label:'Scout Oath', text:'On my honor I will do my best\nTo do my duty to God and my country\nAnd to obey the Scout Law;\nTo help other people at all times;\nTo keep myself physically strong,\nmentally awake, and morally straight.'},
+      {label:'Scout Law', text:'A Scout is:\nTrustworthy · Loyal · Helpful · Friendly · Courteous · Kind · Obedient · Cheerful · Thrifty · Brave · Clean · Reverent'},
+      {label:'Scout Motto', text:'Be Prepared.'},
+      {label:'Scout Slogan', text:'Do a Good Turn Daily.'},
+    ],
+    tip:'Memory trick for the Law — 12 points: TL HF CK OC TB CR. Try saying them as a rhythm: "Trusty, Loyal, Helpful, Friendly — Courteous, Kind — Obedient, Cheerful — Thrifty, Brave — Clean, Reverent."'
+  },
+  {
+    id:'1b', title:'Scout Spirit',
+    quiz:'Explain what Scout spirit is. Describe ways you have shown it.',
+    blocks:[
+      {label:'What it means', text:'Scout spirit means living by the Scout Oath and Law every day — not just at meetings, but at home, at school, and in the community.'},
+      {label:'Examples to give', text:'• Helping a neighbor without being asked\n• Being honest even when it\'s hard\n• Staying cheerful when things go wrong\n• Treating others with respect and kindness\n• Doing a good turn for someone who can\'t repay you'},
+    ],
+    tip:'Be ready with a REAL example from your own life — something you actually did. The Scoutmaster wants to hear your story, not a textbook answer.'
+  },
+  {
+    id:'1c', title:'Scout Sign, Salute & Handshake',
+    quiz:'Demonstrate the Scout sign, salute, and handshake. When is each used?',
+    blocks:[
+      {label:'Scout Sign', text:'Right hand raised, three middle fingers extended up, thumb holds down the pinky. Represents the three parts of the Scout Oath.\n\nUsed when: reciting the Scout Oath or Law.'},
+      {label:'Scout Salute', text:'Three fingers held flat to your forehead, palm facing out.\n\nUsed when: saluting the flag, during the Pledge of Allegiance, greeting other Scouts in uniform.'},
+      {label:'Scout Handshake', text:'A regular handshake using the LEFT hand. A worldwide greeting among Scouts — Baden-Powell adopted it from an African chief who greeted trusted friends with the left hand.\n\nUsed when: greeting fellow Scouts.'},
+    ],
+    tip:'Practice in a mirror — the Scoutmaster will ask you to DEMONSTRATE, not just describe. The left-handed shake surprises most people, so practice it.'
+  },
+  {
+    id:'1d', title:'First Class Scout Badge',
+    quiz:'Describe the First Class Scout badge and explain what each part stands for.',
+    blocks:[
+      {label:'What it looks like', text:'A silver eagle with spread wings perched on a shield bearing the American flag design, with two stars above and a scroll below reading "Be Prepared."'},
+      {label:'What each part means', text:'• Eagle: freedom and readiness to serve\n• Shield with flag: loyalty to the United States\n• Two stars: truth and knowledge\n• Scroll with motto: "Be Prepared"\n• Eagle pointing up: Scouts point the way to better citizenship'},
+    ],
+    tip:'Look at the badge in your Scout handbook before your sign-off. The Scoutmaster may hold it up and ask you to point to specific parts.'
+  },
+  {
+    id:'1e', title:'Outdoor Code & Leave No Trace',
+    quiz:'Recite the Outdoor Code. List the 7 Leave No Trace principles. Explain the difference between the two.',
+    blocks:[
+      {label:'Outdoor Code', text:'As an American, I will do my best to —\nBe clean in my outdoor manners,\nBe careful with fire,\nBe considerate in the outdoors, and\nBe conservation-minded.'},
+      {label:'7 Leave No Trace principles', text:'1. Plan ahead and prepare\n2. Travel and camp on durable surfaces\n3. Dispose of waste properly\n4. Leave what you find\n5. Minimize campfire impacts\n6. Respect wildlife\n7. Be considerate of other visitors'},
+      {label:'The difference', text:'The Outdoor Code is a personal pledge — your attitude and commitment. Leave No Trace is a practical system — specific techniques for minimizing your physical impact on nature.'},
+    ],
+    tip:'LNT memory trick — first letters: P·T·W·L·F·W·V. Make a sentence: "Pretty Tigers Walk Lightly, Finding Wild Valleys." Or make up your own!'
+  },
+  {
+    id:'1f', title:'Pledge of Allegiance',
+    quiz:'Recite the Pledge of Allegiance from memory. Explain its meaning in your own words.',
+    blocks:[
+      {label:'The Pledge', text:'I pledge allegiance to the Flag\nof the United States of America,\nand to the Republic for which it stands,\none Nation under God, indivisible,\nwith liberty and justice for all.'},
+      {label:'Key words', text:'• Pledge = promise\n• Allegiance = loyalty\n• Republic = government elected by the people\n• Indivisible = cannot be divided or split apart\n• Liberty = freedom\n• Justice = fairness under the law'},
+      {label:'In your own words', text:'You are promising loyalty to the American flag and the country it represents — a united nation that cannot be split apart, which provides freedom and fairness to all its people.'},
+    ],
+    tip:'Most Scouts already know the Pledge from school. The key for sign-off is explaining it in YOUR OWN WORDS — don\'t recite a memorized definition. Tell the Scoutmaster what it means to you personally.'
+  }
+];
+
+let mode = 'study';
+const learned = {};
+const quizState = {};
+reqs.forEach(r => { learned[r.id] = false; quizState[r.id] = {shown:false, knew:null}; });
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-study').classList.toggle('active', m==='study');
+  document.getElementById('btn-quiz').classList.toggle('active', m==='quiz');
+  render();
+}
+
+function updateProgress() {
+  const n = Object.values(learned).filter(Boolean).length;
+  const pct = Math.round(n/reqs.length*100);
+  document.getElementById('pbar').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = n+' / '+reqs.length+' learned';
+}
+
+function toggleCard(id) {
+  const el = document.getElementById('card-'+id);
+  if(el) el.classList.toggle('open');
+}
+
+function markLearned(id) {
+  learned[id] = !learned[id];
+  updateProgress();
+  render();
+}
+
+function revealAnswer(id) {
+  quizState[id].shown = true;
+  render();
+}
+
+function markKnew(id, val) {
+  quizState[id].knew = val;
+  learned[id] = val;
+  updateProgress();
+  render();
+}
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;'); }
+function nl(s){ return esc(s).replace(/\n/g,'<br>'); }
+
+function render() {
+  const main = document.getElementById('main');
+  let html = '';
+  const allDone = Object.values(learned).every(Boolean);
+
+  if(allDone) {
+    const allKnew = mode==='quiz' ? Object.values(quizState).every(s=>s.knew===true) : true;
+    html += '<div class="complete-banner">';
+    html += '<div class="icon">&#9733;</div>';
+    html += '<p>'+(mode==='quiz'&&allKnew ? 'Ready for sign-off!' : 'All 6 studied!')+'</p>';
+    html += '<span>'+(mode==='quiz'&&allKnew ? 'You know all six cold. Time to find your Scoutmaster.' : mode==='quiz' ? 'Review the ones you missed, then try again.' : 'Switch to Quiz mode to test yourself.')+'</span>';
+    html += '</div>';
+  }
+
+  if(mode==='study') {
+    reqs.forEach(r => {
+      const done = learned[r.id];
+      html += '<div class="req-card'+(done?' done-card':'')+'" id="card-'+r.id+'">';
+      html += '<div class="req-card-header" onclick="toggleCard(\''+r.id+'\')">';
+      html += '<span class="req-badge">'+r.id+'</span>';
+      html += '<span class="req-card-title">'+esc(r.title)+'</span>';
+      if(done) html += '<span style="color:#1a6b3a;font-size:18px">&#10003;</span>';
+      html += '<span class="chevron">&#8964;</span>';
+      html += '</div>';
+      html += '<div class="req-card-body">';
+      r.blocks.forEach(b => {
+        html += '<div class="content-block">';
+        html += '<div class="content-label">'+esc(b.label)+'</div>';
+        html += '<div class="content-text">'+nl(b.text)+'</div>';
+        html += '</div>';
+      });
+      if(r.tip) {
+        html += '<div class="tip-box"><div class="tip-label">Memory tip</div>'+esc(r.tip)+'</div>';
+      }
+      html += '<button class="mark-btn'+(done?' done':'') +'" onclick="markLearned(\''+r.id+'\')">';
+      html += done ? '<span class="done-check">&#10003;</span> Got it — mark incomplete' : 'Mark as learned';
+      html += '</button>';
+      html += '</div></div>';
+    });
+  } else {
+    reqs.forEach(r => {
+      const qs = quizState[r.id];
+      html += '<div class="quiz-card">';
+      html += '<div class="quiz-badge-row"><span class="req-badge">'+r.id+'</span><span style="font-size:13px;color:#5a7060;font-weight:500">'+esc(r.title)+'</span></div>';
+      html += '<div class="quiz-q">'+esc(r.quiz)+'</div>';
+      if(!qs.shown) {
+        html += '<button class="reveal-btn" onclick="revealAnswer(\''+r.id+'\')">Say it out loud, then show answer</button>';
+      } else {
+        html += '<div class="answer-area shown">';
+        r.blocks.forEach(b => {
+          html += '<div class="content-block">';
+          html += '<div class="content-label">'+esc(b.label)+'</div>';
+          html += '<div class="content-text">'+nl(b.text)+'</div>';
+          html += '</div>';
+        });
+        html += '<div class="knew-row">';
+        html += '<button class="knew-btn yes'+(qs.knew===true?' sel-yes':'')+'" onclick="markKnew(\''+r.id+'\',true)">&#10003; Knew it</button>';
+        html += '<button class="knew-btn no'+(qs.knew===false?' sel-no':'')+'" onclick="markKnew(\''+r.id+'\',false)">&#8635; Need practice</button>';
+        html += '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+  }
+
+  main.innerHTML = html;
+}
+
+render();
+updateProgress();
+</script>
+</body>
+</html>
