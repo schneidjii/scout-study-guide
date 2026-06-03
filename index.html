@@ -3,295 +3,399 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scout Study Guide — Rank Requirements & Totin' Chip</title>
+<title>Scout Study Guide — Full Rank Requirements & Totin' Chip</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green-dark: #0a3d1f;
-    --green-mid: #1a6b3a;
-    --green-light: #2d9e5a;
-    --green-pale: #e8f5ee;
-    --amber: #c8821a;
-    --amber-dark: #7D5A00;
-    --amber-pale: #fef3e2;
-    --brown: #5c3a1e;
-    --brown-pale: #f5ede3;
-    --brown-mid: #8b5e3c;
-    --red-pale: #fdecea;
-    --red: #c0392b;
-    --text: #1a2e1e;
-    --text-muted: #5a7060;
-    --border: #cde0d4;
-    --bg: #f4f9f5;
-    --white: #ffffff;
-    --radius: 10px;
+    --green-dark:#0a3d1f; --green-mid:#1a6b3a; --green-light:#2d9e5a; --green-pale:#e8f5ee;
+    --amber:#c8821a; --amber-pale:#fef3e2;
+    --brown:#5c3a1e; --brown-pale:#f5ede3; --brown-mid:#8b5e3c;
+    --blue:#1a4d7a; --blue-pale:#e8f0f8; --blue-mid:#2d6fa5;
+    --red-pale:#fdecea; --red:#c0392b;
+    --text:#1a2e1e; --text-muted:#5a7060; --border:#cde0d4; --bg:#f4f9f5; --white:#ffffff; --radius:10px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Source Sans 3', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  header {
-    background: var(--green-dark);
-    padding: 1.5rem 1.25rem 1.25rem;
-    position: relative; overflow: hidden;
-  }
-  header::before { content:''; position:absolute; top:-30px; right:-30px; width:140px; height:140px; border-radius:50%; background:rgba(255,255,255,0.04); }
-  header::after  { content:''; position:absolute; bottom:-20px; left:30px; width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.03); }
-  .header-eyebrow { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green-light); margin-bottom:6px; }
-  header h1 { font-family:'Oswald',sans-serif; font-size:24px; font-weight:600; color:white; line-height:1.2; margin-bottom:6px; }
-  header p { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.5; }
-  .progress-section { background:var(--white); border-bottom:1px solid var(--border); padding:1rem 1.25rem; position:sticky; top:0; z-index:100; }
-  .progress-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-  .progress-top span { font-size:13px; font-weight:500; color:var(--text-muted); }
-  .progress-top strong { font-family:'Oswald',sans-serif; font-size:15px; color:var(--green-mid); }
-  .pbar-track { height:7px; background:var(--green-pale); border-radius:99px; overflow:hidden; }
-  .pbar-fill { height:7px; background:var(--green-light); border-radius:99px; transition:width .4s ease; }
-  .section-tabs { display:flex; gap:0; background:var(--white); border-bottom:2px solid var(--border); }
-  .section-tab {
-    flex:1; font-family:'Oswald',sans-serif; font-size:13px; font-weight:500; letter-spacing:.03em;
-    padding:10px 6px; border:none; background:transparent; color:var(--text-muted); cursor:pointer;
-    border-bottom:3px solid transparent; margin-bottom:-2px; transition:all .18s; line-height:1.3;
-  }
-  .section-tab.active { color:var(--green-dark); border-bottom-color:var(--green-mid); }
-  .section-tab.totin.active { color:var(--brown); border-bottom-color:var(--brown-mid); }
-  .mode-bar { display:flex; gap:6px; padding:.75rem 1.25rem; background:var(--white); border-bottom:1px solid var(--border); }
-  .mode-btn { flex:1; font-family:'Oswald',sans-serif; font-size:14px; font-weight:500; letter-spacing:.03em; padding:8px; border-radius:var(--radius); border:1.5px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; transition:all .18s; }
-  .mode-btn.active { background:var(--green-dark); border-color:var(--green-dark); color:white; }
-  .mode-btn.active.totin-mode { background:var(--brown); border-color:var(--brown); }
-  .main { padding:1rem 1.25rem 3rem; }
-  .notice-box { background:var(--brown-pale); border-left:3px solid var(--brown-mid); border-radius:0 8px 8px 0; padding:10px 12px; font-size:13px; line-height:1.55; color:var(--brown); margin-bottom:14px; }
-  .notice-label { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--brown-mid); margin-bottom:3px; font-weight:500; }
-  .req-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; overflow:hidden; }
-  .req-card-header { display:flex; align-items:center; gap:10px; padding:.85rem 1rem; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; }
-  .req-badge { font-family:'Oswald',sans-serif; font-size:13px; font-weight:600; background:var(--green-dark); color:white; padding:3px 9px; border-radius:6px; flex-shrink:0; letter-spacing:.03em; }
-  .req-badge.totin { background:var(--brown); }
-  .req-card-title { flex:1; font-size:14px; font-weight:500; color:var(--text); line-height:1.3; }
-  .chevron { font-size:18px; color:var(--text-muted); transition:transform .2s; flex-shrink:0; }
-  .req-card.open .chevron { transform:rotate(180deg); }
-  .req-card-body { display:none; border-top:1px solid var(--border); padding:1rem; }
-  .req-card.open .req-card-body { display:block; }
-  .content-block { margin-bottom:14px; }
-  .content-label { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--green-mid); margin-bottom:5px; font-weight:500; }
-  .content-label.totin { color:var(--brown-mid); }
-  .content-text { background:var(--green-pale); border-radius:8px; padding:10px 12px; font-size:14px; line-height:1.7; color:var(--text); white-space:pre-line; }
-  .content-text.totin { background:var(--brown-pale); }
-  .tip-box { background:var(--amber-pale); border-left:3px solid var(--amber); border-radius:0 8px 8px 0; padding:9px 12px; font-size:13px; line-height:1.55; color:#5a3a00; margin-bottom:14px; }
-  .tip-label { font-family:'Oswald',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber); margin-bottom:3px; font-weight:500; }
-  .mark-btn { width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:'Source Sans 3',sans-serif; font-size:14px; font-weight:500; color:var(--text-muted); cursor:pointer; transition:all .18s; display:flex; align-items:center; justify-content:center; gap:6px; }
-  .mark-btn.done { background:var(--green-pale); border-color:var(--green-light); color:var(--green-dark); }
-  .mark-btn.done.totin { background:var(--brown-pale); border-color:var(--brown-mid); color:var(--brown); }
-  .done-check { font-size:16px; }
-  .quiz-card { background:var(--white); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px; padding:1rem; }
-  .quiz-badge-row { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-  .quiz-q { font-size:15px; font-weight:500; line-height:1.5; color:var(--text); margin-bottom:12px; }
-  .reveal-btn { width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--green-mid); background:transparent; font-family:'Source Sans 3',sans-serif; font-size:14px; font-weight:500; color:var(--green-mid); cursor:pointer; transition:all .18s; }
-  .reveal-btn.totin { border-color:var(--brown-mid); color:var(--brown-mid); }
-  .reveal-btn:active { background:var(--green-pale); }
-  .reveal-btn.totin:active { background:var(--brown-pale); }
-  .answer-area { display:none; margin-top:10px; }
-  .answer-area.shown { display:block; }
-  .knew-row { display:flex; gap:8px; margin-top:10px; }
-  .knew-btn { flex:1; padding:9px 6px; border-radius:8px; border:1.5px solid var(--border); background:transparent; font-family:'Source Sans 3',sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:all .18s; }
-  .knew-btn.yes { color:var(--green-mid); }
-  .knew-btn.no  { color:var(--red); }
-  .knew-btn.sel-yes { background:var(--green-pale); border-color:var(--green-light); color:var(--green-dark); }
-  .knew-btn.sel-no  { background:var(--red-pale); border-color:#e08080; color:var(--red); }
-  .complete-banner { background:var(--green-dark); border-radius:var(--radius); padding:1.25rem; text-align:center; margin-bottom:12px; color:white; }
-  .complete-banner.totin { background:var(--brown); }
-  .complete-banner .icon { font-size:28px; margin-bottom:6px; }
-  .complete-banner p { font-family:'Oswald',sans-serif; font-size:18px; font-weight:600; margin-bottom:4px; }
-  .complete-banner span { font-size:13px; color:rgba(255,255,255,.65); }
-  .req-card.done-card { border-color:var(--green-light); }
-  .req-card.done-card.totin-card { border-color:var(--brown-mid); }
-  .req-card.done-card .req-card-header { background:var(--green-pale); }
-  .req-card.done-card.totin-card .req-card-header { background:var(--brown-pale); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  header{background:var(--green-dark);padding:1.5rem 1.25rem 1.25rem;position:relative;overflow:hidden}
+  header::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.04)}
+  header::after{content:'';position:absolute;bottom:-20px;left:30px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.03)}
+  .eyebrow{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-light);margin-bottom:6px}
+  header h1{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:white;line-height:1.2;margin-bottom:6px}
+  header p{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5}
+  .sticky{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 1.25rem;position:sticky;top:0;z-index:100}
+  .prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .prog-top span{font-size:13px;font-weight:500;color:var(--text-muted)}
+  .prog-top strong{font-family:'Oswald',sans-serif;font-size:15px;color:var(--green-mid)}
+  .pbar-track{height:7px;background:var(--green-pale);border-radius:99px;overflow:hidden}
+  .pbar-fill{height:7px;background:var(--green-light);border-radius:99px;transition:width .4s ease}
+  .section-tabs{display:flex;gap:0;background:var(--white);border-bottom:2px solid var(--border)}
+  .stab{flex:1;font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:.03em;padding:9px 4px;border:none;background:transparent;color:var(--text-muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .18s;line-height:1.3;text-align:center}
+  .stab.active{color:var(--green-dark);border-bottom-color:var(--green-mid)}
+  .stab.totin.active{color:var(--brown);border-bottom-color:var(--brown-mid)}
+  .mode-bar{display:flex;gap:6px;padding:.75rem 1.25rem;background:var(--white);border-bottom:1px solid var(--border)}
+  .mbtn{flex:1;font-family:'Oswald',sans-serif;font-size:14px;font-weight:500;letter-spacing:.03em;padding:8px;border-radius:var(--radius);border:1.5px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;transition:all .18s}
+  .mbtn.active{background:var(--green-dark);border-color:var(--green-dark);color:white}
+  .mbtn.active.tbtn{background:var(--brown);border-color:var(--brown)}
+  .main{padding:1rem 1.25rem 3rem}
+  .req-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+  .req-card.done-card{border-color:var(--green-light)}
+  .req-card.done-card.tc{border-color:var(--brown-mid)}
+  .card-hdr{display:flex;align-items:center;gap:10px;padding:.85rem 1rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+  .req-card.done-card .card-hdr{background:var(--green-pale)}
+  .req-card.done-card.tc .card-hdr{background:var(--brown-pale)}
+  .rbadge{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;flex-shrink:0;letter-spacing:.03em;color:white}
+  .rbadge.g{background:var(--green-dark)}
+  .rbadge.b{background:var(--blue)}
+  .rbadge.t{background:var(--brown)}
+  .card-title{flex:1;font-size:14px;font-weight:500;color:var(--text);line-height:1.3}
+  .chev{font-size:18px;color:var(--text-muted);transition:transform .2s;flex-shrink:0}
+  .req-card.open .chev{transform:rotate(180deg)}
+  .card-body{display:none;border-top:1px solid var(--border);padding:1rem}
+  .req-card.open .card-body{display:block}
+  .cblock{margin-bottom:14px}
+  .clabel{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;font-weight:500}
+  .clabel.g{color:var(--green-mid)} .clabel.b{color:var(--blue-mid)} .clabel.t{color:var(--brown-mid)}
+  .ctext{border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.7;color:var(--text);white-space:pre-line}
+  .ctext.g{background:var(--green-pale)} .ctext.b{background:var(--blue-pale)} .ctext.t{background:var(--brown-pale)}
+  .tip-box{background:var(--amber-pale);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:9px 12px;font-size:13px;line-height:1.55;color:#5a3a00;margin-bottom:14px}
+  .tip-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:3px;font-weight:500}
+  .notice-box{background:var(--brown-pale);border-left:3px solid var(--brown-mid);border-radius:0 8px 8px 0;padding:10px 12px;font-size:13px;line-height:1.55;color:var(--brown);margin-bottom:14px}
+  .notice-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--brown-mid);margin-bottom:3px;font-weight:500}
+  .info-box{background:var(--blue-pale);border-left:3px solid var(--blue-mid);border-radius:0 8px 8px 0;padding:10px 12px;font-size:13px;line-height:1.55;color:var(--blue);margin-bottom:14px}
+  .info-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:3px;font-weight:500}
+  .mark-btn{width:100%;padding:10px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:6px}
+  .mark-btn.done.g{background:var(--green-pale);border-color:var(--green-light);color:var(--green-dark)}
+  .mark-btn.done.t{background:var(--brown-pale);border-color:var(--brown-mid);color:var(--brown)}
+  .quiz-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;padding:1rem}
+  .quiz-badge-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .quiz-q{font-size:15px;font-weight:500;line-height:1.5;color:var(--text);margin-bottom:12px}
+  .reveal-btn{width:100%;padding:10px;border-radius:8px;border:1.5px solid;background:transparent;font-family:'Source Sans 3',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .18s}
+  .reveal-btn.g{border-color:var(--green-mid);color:var(--green-mid)}
+  .reveal-btn.t{border-color:var(--brown-mid);color:var(--brown-mid)}
+  .answer-area{display:none;margin-top:10px}
+  .answer-area.shown{display:block}
+  .knew-row{display:flex;gap:8px;margin-top:10px}
+  .knew-btn{flex:1;padding:9px 6px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .18s}
+  .knew-btn.yes{color:var(--green-mid)} .knew-btn.no{color:var(--red)}
+  .knew-btn.sel-yes{background:var(--green-pale);border-color:var(--green-light);color:var(--green-dark)}
+  .knew-btn.sel-no{background:var(--red-pale);border-color:#e08080;color:var(--red)}
+  .complete-banner{border-radius:var(--radius);padding:1.25rem;text-align:center;margin-bottom:12px;color:white}
+  .complete-banner.g{background:var(--green-dark)} .complete-banner.t{background:var(--brown)}
+  .complete-banner .icon{font-size:28px;margin-bottom:6px}
+  .complete-banner p{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;margin-bottom:4px}
+  .complete-banner span{font-size:13px;color:rgba(255,255,255,.65)}
+  .section-divider{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:6px 0 8px;margin-top:6px;border-bottom:1px solid var(--border);margin-bottom:10px}
+  .video-wrap{margin-bottom:14px}
+  .video-lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:6px;font-weight:500}
+  .video-frame{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;background:#000}
+  .video-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:8px}
+  .hand-note{display:inline-block;background:#fff8e8;border:1px dashed var(--amber);border-radius:6px;font-size:12px;color:var(--amber-dark,#7D5A00);padding:3px 9px;margin-left:6px;vertical-align:middle}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="header-eyebrow">Scouts BSA — Scout Rank & Totin' Chip</div>
+  <div class="eyebrow">Scouts BSA — Troop 1B Colonial Virginia Council</div>
   <h1>Scout Study Guide</h1>
-  <p>Rank requirements 1a–1f &amp; Totin' Chip. Study, quiz yourself, then get your Scoutmaster sign-off.</p>
+  <p>Full Scout rank requirements (1–7), Totin' Chip &amp; Scoutmaster conference coaching. Study, quiz, sign off.</p>
 </header>
 
-<div class="progress-section">
-  <div class="progress-top">
-    <span id="prog-section-label">Scout Rank (1a–1f)</span>
-    <strong id="prog-label">0 / 6 learned</strong>
+<div class="sticky">
+  <div class="prog-top">
+    <span id="prog-section-lbl">Scout Rank — All Requirements</span>
+    <strong id="prog-label">0 / 0 learned</strong>
   </div>
   <div class="pbar-track"><div class="pbar-fill" id="pbar" style="width:0%"></div></div>
 </div>
 
 <div class="section-tabs">
-  <button class="section-tab active" id="tab-rank" onclick="setSection('rank')">Scout Rank<br><span style="font-size:11px;font-weight:400">Requirements 1a–1f</span></button>
-  <button class="section-tab totin" id="tab-totin" onclick="setSection('totin')">Totin&#x27; Chip<br><span style="font-size:11px;font-weight:400">Woods tools certification</span></button>
+  <button class="stab active" id="tab-rank" onclick="setSec('rank')">Scout Rank<br><span style="font-size:10px;font-weight:400">Requirements 1–7</span></button>
+  <button class="stab totin" id="tab-totin" onclick="setSec('totin')">Totin&#x27; Chip<br><span style="font-size:10px;font-weight:400">Woods tools cert</span></button>
 </div>
-
 <div class="mode-bar">
-  <button class="mode-btn active" id="btn-study" onclick="setMode('study')">Study</button>
-  <button class="mode-btn" id="btn-quiz" onclick="setMode('quiz')">Quiz me</button>
+  <button class="mbtn active" id="btn-study" onclick="setMode('study')">Study</button>
+  <button class="mbtn" id="btn-quiz" onclick="setMode('quiz')">Quiz me</button>
 </div>
 
 <div class="main" id="main"></div>
 
 <script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+
 const rankReqs = [
-  {
-    id:'1a', title:'Scout Oath, Law, Motto & Slogan',
-    quiz:'Recite the Scout Oath, Scout Law, Scout Motto, and Scout Slogan from memory.',
+
+  // ── REQUIREMENT 1 ──────────────────────────────────────────────────────
+  { group:'Requirement 1 — Scouting Knowledge', id:'1a', badge:'g',
+    title:'Scout Oath, Law, Motto & Slogan',
+    quiz:'Recite the Scout Oath, Scout Law, Scout Motto, and Scout Slogan from memory. Explain what each means in your own words.',
     blocks:[
-      {label:'Scout Oath', text:'On my honor I will do my best\nTo do my duty to God and my country\nAnd to obey the Scout Law;\nTo help other people at all times;\nTo keep myself physically strong,\nmentally awake, and morally straight.'},
-      {label:'Scout Law', text:'A Scout is:\nTrustworthy · Loyal · Helpful · Friendly · Courteous · Kind · Obedient · Cheerful · Thrifty · Brave · Clean · Reverent'},
-      {label:'Scout Motto', text:'Be Prepared.'},
-      {label:'Scout Slogan', text:'Do a Good Turn Daily.'},
+      {c:'g', label:'Scout Oath', text:'On my honor I will do my best\nTo do my duty to God and my country\nAnd to obey the Scout Law;\nTo help other people at all times;\nTo keep myself physically strong,\nmentally awake, and morally straight.'},
+      {c:'g', label:'Scout Law — 12 Points', text:'A Scout is:\nTrustworthy · Loyal · Helpful · Friendly · Courteous · Kind\nObedient · Cheerful · Thrifty · Brave · Clean · Reverent'},
+      {c:'g', label:'Scout Motto', text:'Be Prepared.'},
+      {c:'g', label:'Scout Slogan', text:'Do a Good Turn Daily.'},
     ],
-    tip:'Memory trick for the Law — 12 points: TL HF CK OC TB CR. Try saying them as a rhythm: "Trusty, Loyal, Helpful, Friendly — Courteous, Kind — Obedient, Cheerful — Thrifty, Brave — Clean, Reverent."'
+    tip:'Law memory trick — group in pairs: TL · HF · CK · OC · TB · CR. Rhythm: "Trusty-Loyal, Helpful-Friendly — Courteous-Kind — Obedient-Cheerful — Thrifty-Brave — Clean-Reverent."'
   },
-  {
-    id:'1b', title:'Scout Spirit',
-    quiz:'Explain what Scout spirit is. Describe ways you have shown it.',
+  { group:null, id:'1b', badge:'g',
+    title:'Scout Spirit',
+    quiz:'Explain what Scout spirit is. Describe specific ways you have shown it.',
     blocks:[
-      {label:'What it means', text:'Scout spirit means living by the Scout Oath and Law every day — not just at meetings, but at home, at school, and in the community.'},
-      {label:'Examples to give', text:'• Helping a neighbor without being asked\n• Being honest even when it\'s hard\n• Staying cheerful when things go wrong\n• Treating others with respect and kindness\n• Doing a good turn for someone who can\'t repay you'},
+      {c:'g', label:'What it means', text:'Living by the Scout Oath and Law every single day — not just at meetings, but at home, school, and in the community.'},
+      {c:'g', label:'How to answer this', text:'Give a REAL story from your own life. Examples:\n• Helped a neighbor carry groceries without being asked\n• Was honest about a mistake even when it was easier to stay quiet\n• Stayed cheerful when your team lost\n• Stood up for someone being picked on'},
     ],
-    tip:'Be ready with a REAL example from your own life — something you actually did. The Scoutmaster wants to hear your story, not a textbook answer.'
+    tip:'The Scoutmaster will NOT accept "I try to follow the Scout Law." They want a specific story. Think of one before your conference.'
   },
-  {
-    id:'1c', title:'Scout Sign, Salute & Handshake',
+  { group:null, id:'1c', badge:'g',
+    title:'Scout Sign, Salute & Handshake',
     quiz:'Demonstrate the Scout sign, salute, and handshake. When is each used?',
     blocks:[
-      {label:'Scout Sign', text:'Right hand raised, three middle fingers extended up, thumb holds down the pinky. Represents the three parts of the Scout Oath.\n\nUsed when: reciting the Scout Oath or Law.'},
-      {label:'Scout Salute', text:'Three fingers held flat to your forehead, palm facing out.\n\nUsed when: saluting the flag, during the Pledge of Allegiance, greeting other Scouts in uniform.'},
-      {label:'Scout Handshake', text:'A regular handshake using the LEFT hand. A worldwide greeting among Scouts — Baden-Powell adopted it from an African chief who greeted trusted friends with the left hand.\n\nUsed when: greeting fellow Scouts.'},
+      {c:'g', label:'Scout Sign', text:'Right hand raised, three middle fingers extended up, thumb holds pinky down. Represents the three parts of the Oath.\n\nUsed when: reciting the Scout Oath or Scout Law.'},
+      {c:'g', label:'Scout Salute', text:'Three fingers flat to the forehead, palm out.\n\nUsed when: saluting the flag, the Pledge of Allegiance, greeting other Scouts in uniform.'},
+      {c:'g', label:'Scout Handshake', text:'A regular handshake with the LEFT hand. Baden-Powell adopted it from an African chief who offered the left hand as a sign of trust.\n\nUsed when: greeting fellow Scouts.'},
     ],
-    tip:'Practice in a mirror — the Scoutmaster will ask you to DEMONSTRATE, not just describe. The left-handed shake surprises most people, so practice it.'
+    tip:'Practice in a mirror. You MUST physically demonstrate all three — not just describe them. The left handshake trips most people up.'
   },
-  {
-    id:'1d', title:'First Class Scout Badge',
+  { group:null, id:'1d', badge:'g',
+    title:'First Class Scout Badge',
     quiz:'Describe the First Class Scout badge and explain what each part stands for.',
     blocks:[
-      {label:'What it looks like', text:'A silver eagle with spread wings perched on a shield bearing the American flag design, with two stars above and a scroll below reading "Be Prepared."'},
-      {label:'What each part means', text:'• Eagle: freedom and readiness to serve\n• Shield with flag: loyalty to the United States\n• Two stars: truth and knowledge\n• Scroll with motto: "Be Prepared"\n• Eagle pointing up: Scouts point the way to better citizenship'},
+      {c:'g', label:'What it looks like', text:'A silver eagle with spread wings perched on a shield with the American flag, two stars above, and a scroll below reading "Be Prepared."'},
+      {c:'g', label:'What each part means', text:'• Eagle: freedom and readiness to serve\n• Shield with flag: loyalty to the United States\n• Two stars: truth and knowledge\n• Scroll with "Be Prepared": the Scout motto\n• Eagle pointing up: Scouts lead the way to better citizenship'},
     ],
-    tip:'Look at the badge in your Scout handbook before your sign-off. The Scoutmaster may hold it up and ask you to point to specific parts.'
+    tip:'Find the badge in your Scout handbook and look at it. The Scoutmaster may hold it up and ask you to point to parts.'
   },
-  {
-    id:'1e', title:'Outdoor Code & Leave No Trace',
-    quiz:'Recite the Outdoor Code. List the 7 Leave No Trace principles. Explain the difference between the two.',
+  { group:null, id:'1e', badge:'g',
+    title:'Outdoor Code & Leave No Trace',
+    quiz:'Recite the Outdoor Code from memory. List the 7 Leave No Trace principles. Explain the difference between the two.',
     blocks:[
-      {label:'Outdoor Code', text:'As an American, I will do my best to —\nBe clean in my outdoor manners,\nBe careful with fire,\nBe considerate in the outdoors, and\nBe conservation-minded.'},
-      {label:'7 Leave No Trace principles', text:'1. Plan ahead and prepare\n2. Travel and camp on durable surfaces\n3. Dispose of waste properly\n4. Leave what you find\n5. Minimize campfire impacts\n6. Respect wildlife\n7. Be considerate of other visitors'},
-      {label:'The difference', text:'The Outdoor Code is a personal pledge — your attitude and commitment. Leave No Trace is a practical system — specific techniques for minimizing your physical impact on nature.'},
+      {c:'g', label:'Outdoor Code', text:'As an American, I will do my best to —\nBe clean in my outdoor manners,\nBe careful with fire,\nBe considerate in the outdoors, and\nBe conservation-minded.'},
+      {c:'g', label:'7 Leave No Trace Principles', text:'1. Plan ahead and prepare\n2. Travel and camp on durable surfaces\n3. Dispose of waste properly\n4. Leave what you find\n5. Minimize campfire impacts\n6. Respect wildlife\n7. Be considerate of other visitors'},
+      {c:'g', label:'The difference', text:'Outdoor Code = your personal pledge and attitude. LNT = specific practical techniques to minimize your physical impact. One is a promise; the other is a how-to system.'},
     ],
-    tip:'LNT memory trick — first letters: P·T·W·L·F·W·V. Make a sentence: "Pretty Tigers Walk Lightly, Finding Wild Valleys." Or make up your own!'
+    tip:'LNT first-letter trick: P·T·W·L·F·W·V — "Pretty Tigers Walk Lightly, Finding Wild Valleys." Or make up your own sentence.'
   },
-  {
-    id:'1f', title:'Pledge of Allegiance',
+  { group:null, id:'1f', badge:'g',
+    title:'Pledge of Allegiance',
     quiz:'Recite the Pledge of Allegiance from memory. Explain its meaning in your own words.',
     blocks:[
-      {label:'The Pledge', text:'I pledge allegiance to the Flag\nof the United States of America,\nand to the Republic for which it stands,\none Nation under God, indivisible,\nwith liberty and justice for all.'},
-      {label:'Key words', text:'• Pledge = promise\n• Allegiance = loyalty\n• Republic = government elected by the people\n• Indivisible = cannot be divided or split apart\n• Liberty = freedom\n• Justice = fairness under the law'},
-      {label:'In your own words', text:'You are promising loyalty to the American flag and the country it represents — a united nation that cannot be split apart, which provides freedom and fairness to all its people.'},
+      {c:'g', label:'The Pledge', text:'I pledge allegiance to the Flag\nof the United States of America,\nand to the Republic for which it stands,\none Nation under God, indivisible,\nwith liberty and justice for all.'},
+      {c:'g', label:'Key words', text:'• Pledge = promise  • Allegiance = loyalty\n• Republic = government elected by the people\n• Indivisible = cannot be split apart\n• Liberty = freedom  • Justice = fairness'},
+      {c:'g', label:'In your own words', text:'A promise of loyalty to the U.S. flag and the country it represents — a united nation, impossible to divide, that gives freedom and fairness to everyone.'},
     ],
-    tip:'Most Scouts already know the Pledge from school. The key for sign-off is explaining it in YOUR OWN WORDS — don\'t recite a memorized definition. Tell the Scoutmaster what it means to you personally.'
-  }
+    tip:'Most Scouts know the words from school. The Scoutmaster wants YOUR version of what it means — not a dictionary definition. Make it personal.'
+  },
+
+  // ── REQUIREMENT 2 ──────────────────────────────────────────────────────
+  { group:'Requirement 2 — Troop Knowledge', id:'2a', badge:'g',
+    title:'How Scouts provide troop leadership',
+    quiz:'Describe how Scouts in the troop provide its leadership.',
+    blocks:[
+      {c:'g', label:'How to answer', text:'Scouts lead their own troop through elected and appointed positions. Key leadership roles Scouts hold:\n\n• Senior Patrol Leader (SPL) — the top Scout leader of the troop, elected by Scouts\n• Assistant Senior Patrol Leader (ASPL) — supports the SPL\n• Patrol Leader — leads their individual patrol\n• Assistant Patrol Leader\n• Other positions: Scribe, Quartermaster, Historian, Chaplain Aide'},
+      {c:'g', label:'The key idea', text:'The troop is Scout-led, not adult-led. Adults (Scoutmaster, ASMs) are coaches and mentors — they guide from the background. Scouts make decisions, plan meetings, and run activities.'},
+    ],
+    tip:'Know your own troop\'s SPL name if possible. Being able to name actual people in your troop shows real engagement.'
+  },
+  { group:null, id:'2b', badge:'g',
+    title:'The four steps of Scout advancement',
+    quiz:'Describe the four steps of Scout advancement.',
+    blocks:[
+      {c:'g', label:'The four steps', text:'1. LEARN the skill or knowledge\n2. BE TESTED — demonstrate it to a leader or qualified Scout\n3. BE REVIEWED — Scoutmaster conference\n4. BE RECOGNIZED — board of review, then receive the rank'},
+      {c:'g', label:'How to remember it', text:'Learn it → Show it → Conference → Board. Each rank follows the same four steps, from Scout all the way to Eagle.'},
+    ],
+    tip:'Short and clean answer. Know the four steps word-for-word — the Scoutmaster may ask you to list them.'
+  },
+  { group:null, id:'2c', badge:'g',
+    title:'Scouts BSA ranks and how they are earned',
+    quiz:'Describe what the Scouts BSA ranks are and how they are earned.',
+    blocks:[
+      {c:'g', label:'The seven ranks in order', text:'1. Scout\n2. Tenderfoot\n3. Second Class\n4. First Class\n5. Star\n6. Life\n7. Eagle Scout'},
+      {c:'g', label:'How ranks are earned', text:'Each rank has specific requirements — knowledge, skills, service, and leadership. You complete the requirements, have them signed off, do your Scoutmaster conference, then appear before a board of review.\n\nRanks must be earned IN ORDER. You can work on Scout, Tenderfoot, Second Class, and First Class simultaneously, but they must be awarded in sequence.'},
+      {c:'g', label:'Eagle Scout', text:'The highest rank. Requires 21 merit badges (13 specific ones required), significant leadership experience, a community service project, and living by the Scout Oath and Law throughout.'},
+    ],
+    tip:'Memorize the seven ranks in order. The Scoutmaster may ask you to list them. Eagle is the goal — know why it matters.'
+  },
+  { group:null, id:'2d', badge:'g',
+    title:'Merit badges and how they are earned',
+    quiz:'Describe what merit badges are and how they are earned.',
+    blocks:[
+      {c:'g', label:'What they are', text:'Merit badges are awards earned by completing specific requirements in a subject area. There are over 130 different merit badges covering topics like Archery, First Aid, Cooking, Kayaking, Citizenship, and many more.'},
+      {c:'g', label:'How to earn one', text:'1. Get a signed blue card from your Scoutmaster for the badge\n2. Contact a merit badge counselor (an adult expert in that subject)\n3. Complete all the requirements — the counselor guides and tests you\n4. Counselor signs the blue card when complete\n5. Turn in the blue card and receive the badge'},
+      {c:'g', label:'Why they matter', text:'Merit badges count toward rank advancement. Star requires 6, Life requires 11, and Eagle requires 21. Some badges are required (like First Aid, Citizenship, Swimming or alternatives).'},
+    ],
+    tip:'You\'re earning 4–5 merit badges at Camp Shenandoah this summer. You already know how this works from experience — tell the Scoutmaster that.'
+  },
+
+  // ── REQUIREMENT 3 ──────────────────────────────────────────────────────
+  { group:'Requirement 3 — Patrol Method', id:'3a', badge:'g',
+    title:'The patrol method',
+    quiz:'Explain the patrol method. Describe the types of patrols used in your troop.',
+    blocks:[
+      {c:'g', label:'What the patrol method is', text:'The patrol method is the way Scouts BSA organizes its troops. Scouts are divided into small groups called patrols — usually 6–10 Scouts — each with their own leader, name, and identity.\n\nPatrols work together, camp together, and compete together. The patrol is your team within the larger troop.'},
+      {c:'g', label:'Types of patrols', text:'• Regular patrols — mixed-age groups of active Scouts\n• New Scout patrols — all new Scouts together while they learn the basics (this is likely your patrol right now)\n• Venture patrols — older Scouts (usually 13+) with more challenging activities\n\nCheck with your troop leader for your specific patrol name and type.'},
+      {c:'g', label:'Why it works', text:'Smaller groups mean every Scout has a role. You can\'t hide in a patrol of 8 the way you might in a group of 40. Everyone leads, everyone contributes.'},
+    ],
+    tip:'Know YOUR patrol name, emblem, flag, and yell before your conference — you\'ll need this for 3b too.'
+  },
+  { group:null, id:'3b', badge:'g',
+    title:'Patrol spirit — name, emblem, flag & yell',
+    quiz:'Describe your patrol name, emblem, flag, and yell. Explain how these create patrol spirit.',
+    blocks:[
+      {c:'g', label:'What to know', text:'This is specific to YOUR patrol — ask your patrol leader or Scoutmaster for:\n• Patrol name (e.g. "Eagle Patrol," "Wolf Patrol")\n• Patrol emblem (the patch design for that patrol)\n• Patrol flag (what it looks like)\n• Patrol yell (the chant or call used at events)'},
+      {c:'g', label:'How they create patrol spirit', text:'These shared symbols give the patrol an identity — something to rally around. They create pride, belonging, and friendly competition with other patrols in the troop. A Scout who knows their patrol yell cold is a Scout who feels like part of the team.'},
+    ],
+    tip:'This requires talking to your troop before the conference. Don\'t wait — ask your patrol leader at the next meeting.'
+  },
+
+  // ── REQUIREMENT 4 ──────────────────────────────────────────────────────
+  { group:'Requirement 4 — Knots', id:'4a', badge:'g',
+    title:'Square knot, two half-hitches & taut-line hitch',
+    quiz:'Demonstrate tying a square knot, two half-hitches, and a taut-line hitch. Explain when each is used.',
+    video:{id:'9t3hdyYfZUE', label:'BSA Req 4A — Knot Tying Tutorial'},
+    blocks:[
+      {c:'g', label:'Square Knot', text:'Used for: joining two ropes of equal thickness, first aid bandages, binding packages.\n\nHow to tie: "Right over left, left over right." Take the right rope end over the left, wrap under, then take the new left end over the right and wrap under. Pull tight — both loops should lay flat.\n\nMemory trick: Right over left, left over right — makes a square, tied up tight.'},
+      {c:'g', label:'Two Half-Hitches', text:'Used for: tying a rope to a post, tree, or ring — like hanging a hammock or securing a boat.\n\nHow to tie: Loop the rope around the post. Bring the end over and through the loop (first half-hitch). Repeat — bring the end over and through again (second half-hitch). Pull snug.'},
+      {c:'g', label:'Taut-Line Hitch', text:'Used for: tent guy lines and anywhere you need an adjustable loop that holds under tension but can be slid to tighten or loosen.\n\nHow to tie: Loop around a stake. Bring the end up and make two wraps inside the large loop (toward the stake). Then wrap once around the outside of the large loop and thread through. Slide to adjust tension.'},
+    ],
+    tip:'Knots MUST be demonstrated physically — you can\'t just describe them. Practice with actual rope until you can tie all three without thinking. Buy a piece of paracord and keep it in your pocket.\n\nNote: This requirement has a hands-on sign-off with a leader. The study cards here help you understand what each knot does, but practice tying is the real prep.'
+  },
+  { group:null, id:'4b', badge:'g',
+    title:'Rope care — whipping & fusing',
+    quiz:'Show how to properly care for a rope. Demonstrate whipping and fusing the ends of different ropes.',
+    video:{id:'NugYLvUjVTA', label:'BSA Req 4B — Whipping & Fusing Tutorial'},
+    blocks:[
+      {c:'g', label:'Why it matters', text:'Rope ends fray. When they do, the rope weakens and unravels. Whipping and fusing keep the end intact so the rope stays usable.'},
+      {c:'g', label:'Whipping', text:'Used on: natural fiber ropes (cotton, hemp, sisal — anything that will melt unevenly or burn badly).\n\nHow to whip: Lay a loop of thin twine along the rope end. Wrap tightly around the rope toward the end, covering the loop tail. After enough wraps, thread the working end through the loop. Pull the tail to cinch the loop under the wraps. Trim excess.'},
+      {c:'g', label:'Fusing', text:'Used on: synthetic ropes (nylon, polyester, paracord — anything that melts cleanly).\n\nHow to fuse: Hold the rope end near a flame (lighter or match). The fibers melt — quickly press the melted tip flat against a smooth surface (or with a wet finger) before it hardens. Done. Quick and effective.\n\nNever fuse natural fiber rope — it burns, not melts.'},
+    ],
+    tip:'Like knots, this is a hands-on demonstration. Practice at home with a piece of paracord (synthetic = fuse) and a cotton rope or twine (natural = whip). The Scoutmaster wants to SEE you do it.'
+  },
+
+  // ── REQUIREMENT 5 ──────────────────────────────────────────────────────
+  { group:'Requirement 5 — Pocketknife Safety', id:'5', badge:'g',
+    title:'Safe and responsible pocketknife use',
+    quiz:'Tell what you need to know about using a pocketknife safely and responsibly.',
+    blocks:[
+      {c:'g', label:'Key safety rules', text:'• Always cut AWAY from your body\n• Keep the blade closed when not in use\n• Pass a knife closed — or handle-first, never blade-first\n• No throwing, no horseplay, no showing off\n• Use sharp blades — dull blades slip and cut more people\n• Never use a knife as a pry bar, screwdriver, or digging tool\n• Only use a knife for a real purpose — not to whittle aimlessly or prove something'},
+      {c:'g', label:'The blood circle', text:'Before opening a knife, extend your arm and spin in a circle. If your hand would reach anyone, you are too close to others. Clear your blood circle EVERY time, then open your knife.'},
+      {c:'g', label:'BSA policy', text:'Scouts BSA does NOT allow sheath knives (hunting knives). Pocketknives only.\n\nNote: To carry and use a pocketknife at camp and activities, you must ALSO earn your Totin\' Chip — see the Totin\' Chip tab.'},
+    ],
+    tip:'This is a knowledge question — no demonstration required for Scout rank. But if you also earn Totin\' Chip, you\'ll demonstrate in person. Know both the rules and the blood circle cold.'
+  },
+
+  // ── REQUIREMENT 6 ──────────────────────────────────────────────────────
+  { group:'Requirement 6 — Personal Safety', id:'6', badge:'b',
+    title:'Personal Safety Awareness (with parent/guardian)',
+    quiz:'Have you completed the Personal Safety Awareness videos with a parent or guardian?',
+    blocks:[
+      {c:'b', label:'What this requires', text:'Watch the BSA Personal Safety Awareness videos together with a parent or guardian.\n\nURL: scouting.org/training/youth-protection/scouts-bsa/\n\nThese cover recognizing and reporting abuse, online safety, and personal boundaries. They take about 20–30 minutes total.'},
+      {c:'b', label:'Why it exists', text:'BSA requires this for every Scout at the Scout rank (and again at Star) to ensure all Scouts understand how to protect themselves and report unsafe situations.'},
+      {c:'b', label:'What you do with it', text:'After watching, your parent or guardian confirms completion. Your Scoutmaster will ask if you completed this during your conference — a simple yes is all that\'s needed in the meeting. The videos do the real work.'},
+    ],
+    tip:'This one is done WITH your dad. Watch together before your Scoutmaster conference. It\'s straightforward — not a test, just a video series. Check the box, move on.'
+  },
+
+  // ── REQUIREMENT 7 ──────────────────────────────────────────────────────
+  { group:'Requirement 7 — Scoutmaster Conference', id:'7', badge:'b',
+    title:'How to ace your Scoutmaster conference',
+    quiz:'What is the Scoutmaster conference, and how should you approach it?',
+    blocks:[
+      {c:'b', label:'What it actually is', text:'A one-on-one conversation between you and the Scoutmaster (or an Assistant Scoutmaster). It is NOT a test. There are no required questions — it\'s a check-in to see how you\'re doing and where you want to go in Scouting.\n\nThink of it as a mentor conversation, not an exam.'},
+      {c:'b', label:'What the Scoutmaster is likely to ask', text:'• "Tell me about yourself — how did you end up in Scouts?"\n• "What requirements did you work on for this rank?"\n• "What did you enjoy most? What was hardest?"\n• "Is there anything about your experience here you\'d change?"\n• "What badge or skill are you most excited to work on next?"\n• "Are you having fun?"\n• "What are your goals in Scouting?"'},
+      {c:'b', label:'How to answer well', text:'• Be honest — there are no wrong answers\n• Use real examples and real stories, not textbook answers\n• It\'s okay to say something was hard or confusing\n• Show that you\'re thinking about what comes NEXT — not just checking a box\n• Look the Scoutmaster in the eye, speak clearly, and give real answers\n• Don\'t rush — take a second to think before you answer'},
+      {c:'b', label:'What NOT to do', text:'• Don\'t give one-word answers ("Yes," "No," "Fine")\n• Don\'t say "I don\'t know" and leave it there — try to answer even partially\n• Don\'t act like it\'s a chore you\'re getting through\n• Don\'t be afraid to bring up something you\'re genuinely excited about — it makes the conversation real'},
+      {c:'b', label:'Sample answers you can practice', text:'Q: "What was the hardest requirement for you?"\nA: "Memorizing the Scout Law — there are 12 points and I kept forgetting Thrifty and Obedient. I made up a rhythm to remember them."\n\nQ: "What are you looking forward to at camp?"\nA: "Kayaking, and honestly earning First Aid — I think that\'s useful in real life, not just Scouting."\n\nQ: "Are you having fun?"\nA: "Yeah — I didn\'t know what to expect but the [specific activity] was actually really cool."'},
+    ],
+    tip:'The Scoutmaster conference happens after all other requirements are done. It\'s your last step before the board of review. Go in relaxed, be real, and show some enthusiasm. A Scout who\'s clearly thinking about what\'s next makes a Scoutmaster\'s day.'
+  },
 ];
 
 const totinReqs = [
-  {
-    id:'tc1', title:'Read & understand woods tools safety rules',
-    quiz:'Where do you find the woods tools safety rules, and what is the overall purpose of the Totin\' Chip?',
+  { group:'Totin\' Chip Requirements', id:'tc1', badge:'t',
+    title:'What the Totin\' Chip is & means',
+    quiz:'What is the Totin\' Chip, and what does earning it grant you?',
     blocks:[
-      {label:'What to know', text:'Read the woods tools use and safety rules in the Scout BSA Handbook before your sign-off.'},
-      {label:'What the Totin\' Chip means', text:'The Totin\' Chip is a certification — like a license — that grants you the right to carry and use woods tools at camp and Scout activities. Without it, you cannot carry a pocketknife or use an ax or saw.\n\nYour "Totin\' Rights" can be taken away if you fail to handle tools safely.'},
-      {label:'The card system', text:'Some troops use a 4-corner card. A corner gets removed for each safety violation. Lose all 4 corners and you lose your Totin\' Rights until you retake the training.'},
+      {c:'t', label:'What it is', text:'A certification — like a license — that grants a Scout the right to carry and use woods tools: pocketknife, ax, and saw. Without it, you cannot carry a knife at Scout activities or camp.\n\nYour "Totin\' Rights" can be taken away if you handle tools unsafely.'},
+      {c:'t', label:'The card system', text:'Many troops use a 4-corner card. A corner is removed for each safety violation. Lose all 4 corners and your Totin\' Rights are revoked until you retake the training.\n\nA major safety violation or injury can cause immediate revocation.'},
+      {c:'t', label:'How to earn it', text:'Read the woods tools safety rules in your Scout handbook, then demonstrate safe handling of pocketknife, ax, and saw to a Scout leader. It\'s typically a short course run by older Scouts or a leader.'},
     ],
-    tip:'Know this cold before your sign-off: "The Totin\' Chip grants me the right to carry and use woods tools, and those rights can be taken away if I am unsafe."'
+    tip:'The phrase to know cold: "The Totin\' Chip grants me the right to carry and use woods tools, and those rights can be taken away if I fail to use them safely."'
   },
-  {
-    id:'tc2', title:'Pocketknife — safe handling & use',
-    quiz:'Demonstrate proper handling, care, and use of a pocketknife. What are the key safety rules?',
+  { group:null, id:'tc2', badge:'t',
+    title:'Pocketknife — safe handling & use',
+    quiz:'Demonstrate proper handling and use of a pocketknife. What are the key safety rules?',
     blocks:[
-      {label:'Key safety rules', text:'• Always cut AWAY from your body\n• Keep the blade closed when not in use\n• Pass a knife closed, or blade-first with the handle toward the other person\n• Never use a knife as a pry bar or screwdriver\n• Keep blades clean and sharp — dull blades slip and cause more injuries\n• Never throw a knife\n• No horseplay with any blade'},
-      {label:'Blood circle', text:'Before opening a knife, extend your arm and spin in a full circle. If you would hit anyone, you\'re too close to others. This is called your "blood circle" — clear it before cutting.'},
-      {label:'Sheath knives (hunting knives)', text:'Scouts BSA does NOT allow sheath knives at camp. Pocketknives only.'},
+      {c:'t', label:'Key rules', text:'• Always cut AWAY from your body\n• Keep blade closed when not in use\n• Pass closed, or handle-first — never blade-first\n• Never use as a pry bar or screwdriver\n• Keep blades sharp — dull blades slip\n• No throwing, no horseplay\n• Always clear your blood circle before opening'},
+      {c:'t', label:'Blood circle', text:'Extend your arm and spin in a full circle. If you\'d reach anyone, you\'re too close. Clear it, then open your knife. Do this every single time.'},
+      {c:'t', label:'BSA policy', text:'Sheath knives (hunting knives) are NOT permitted. Pocketknives only at Scout activities.'},
     ],
-    tip:'The blood circle is the #1 thing leaders test. Practice doing it naturally — extend arm, turn, check, then open knife.'
+    tip:'The blood circle is the #1 thing leaders look for. Do it every time without being reminded — that\'s what earns respect with tools.'
   },
-  {
-    id:'tc3', title:'Ax — safe handling & use',
+  { group:null, id:'tc3', badge:'t',
+    title:'Ax — safe handling & use',
     quiz:'Demonstrate proper handling and use of an ax. What are the key safety rules?',
     blocks:[
-      {label:'Key safety rules', text:'• Always keep the ax sheathed/covered when not in use\n• Inspect the ax head — make sure it is tight on the handle before use\n• Clear your blood circle before every swing\n• Choke up on the handle for short cuts; full grip for full swings\n• Never use an ax as a hammer\n• Kneel on one knee when splitting kindling — never hold wood upright in your hand\n• Two-hand grip at all times while swinging'},
-      {label:'Ax yard', text:'When chopping, set up an "ax yard" — a dedicated area cleared of people. Only the person using the ax may be inside the ax yard.'},
-      {label:'Passing the ax', text:'Always pass an ax with the head down, handle toward the other person, and announce "ax coming."'},
+      {c:'t', label:'Key rules', text:'• Always keep ax sheathed when not in use\n• Inspect the ax head — make sure it\'s tight on the handle\n• Clear your blood circle before every swing\n• Never use an ax as a hammer\n• Kneel on one knee when splitting kindling — never hold wood in your hand while chopping\n• Two-hand grip at all times while swinging\n• Announce "ax coming" when carrying near others'},
+      {c:'t', label:'Ax yard', text:'Set up a dedicated cutting area cleared of people. Only the person using the ax may be inside the ax yard during use.'},
+      {c:'t', label:'Passing the ax', text:'Head down, handle toward the other person. Say "ax coming" before passing. Receiver says "thank you" before the passer lets go.'},
     ],
-    tip:'Leaders want to see that you treat the ax with respect — slow, deliberate movements, always checking your surroundings before swinging.'
+    tip:'Slow, deliberate movements show respect for the tool. Leaders trust the Scout who moves carefully far more than the one who swings fast.'
   },
-  {
-    id:'tc4', title:'Saw — safe handling & use',
+  { group:null, id:'tc4', badge:'t',
+    title:'Saw — safe handling & use',
     quiz:'Demonstrate proper handling and use of a folding saw. What are the key safety rules?',
     blocks:[
-      {label:'Key safety rules', text:'• Keep the saw folded or sheathed when not in use\n• Never touch the teeth — they are extremely sharp\n• Use smooth, even strokes — don\'t force it\n• Let the saw do the work; pressing too hard causes binding and slipping\n• Secure the wood before cutting — never hold it free-hand\n• Keep fingers and body clear of the cutting line'},
-      {label:'Proper technique', text:'Start the cut with a few light pull strokes to create a groove, then use full strokes. Keep your free hand well away from the blade path.'},
+      {c:'t', label:'Key rules', text:'• Keep the saw folded or sheathed when not in use\n• Never touch the teeth with bare hands\n• Use smooth, even strokes — don\'t force it\n• Let the saw do the work — pressing hard causes binding and slipping\n• Secure the wood before cutting — never hold it free-hand\n• Keep free hand and body clear of the cutting line at all times'},
+      {c:'t', label:'Proper technique', text:'Start with a few light pull strokes to create a notch, then use full smooth strokes. Keep your free hand well back from the blade path — not just "out of the way," but truly clear.'},
     ],
-    tip:'The saw feels safer than the ax but causes more accidental injuries because people get careless. Slow and steady always.'
+    tip:'The saw feels less dangerous than the ax but causes more camp injuries because people get careless with it. Slow is fast.'
   },
-  {
-    id:'tc5', title:'Tools as tools, not playthings',
+  { group:null, id:'tc5', badge:'t',
+    title:'Tools as tools — not playthings',
     quiz:'Explain what it means to use knife, ax, and saw as tools — not playthings.',
     blocks:[
-      {label:'What it means', text:'Woods tools are for camp tasks — cutting rope, preparing firewood, carving, clearing brush. They are never to be used for:\n• Throwing at targets\n• Showing off or daring others\n• Whittling aimlessly without purpose\n• Threatening or intimidating anyone'},
-      {label:'The mindset', text:'A Scout with a knife or ax is responsible for every swing, every cut, and everyone nearby. Treat every tool as if it could cause serious injury — because it can.'},
+      {c:'t', label:'What it means', text:'Woods tools are for real camp tasks — cutting rope, preparing firewood, clearing brush. They are NEVER for:\n• Throwing at targets\n• Showing off or daring others\n• Whittling aimlessly without purpose\n• Threatening or intimidating anyone'},
+      {c:'t', label:'The mindset', text:'Every swing, every cut — you are responsible for what happens. Treat every tool as if it could seriously injure someone, because it can. That mindset is what keeps camps safe.'},
     ],
-    tip:'This one is more about attitude than memorization. Leaders are watching how you carry yourself around tools all day, not just during the sign-off.'
+    tip:'This is an attitude question. Leaders watch how you carry yourself around tools all day, not just during the sign-off session.'
   },
-  {
-    id:'tc6', title:'Respect safety rules & protect others',
-    quiz:'What does it mean to respect all safety rules and protect others when using woods tools?',
+  { group:null, id:'tc6', badge:'t',
+    title:'Respect safety rules & protect others',
+    quiz:'What does it mean to respect safety rules and protect others when using woods tools?',
     blocks:[
-      {label:'Protecting others', text:'• Always know where other people are before using any tool\n• Never rush with a blade — take your time\n• Speak up if you see someone else being unsafe\n• Set a good example — other Scouts will follow what you do'},
-      {label:'Your responsibility', text:'The Totin\' Chip is a privilege. If you see unsafe tool use — whether it\'s you or someone else — stop. It\'s always better to slow down and be safe than to finish fast and get hurt.'},
+      {c:'t', label:'Protecting others', text:'• Always know where people are before using any tool\n• Never rush with a blade\n• Speak up if you see someone else being unsafe — that\'s leadership\n• Set a good example — younger Scouts copy what they see'},
+      {c:'t', label:'Your responsibility', text:'The Totin\' Chip is a privilege. If a situation feels unsafe — whether it\'s you or someone else — stop. It\'s always better to pause and be safe than to hurry and get hurt or hurt someone else.'},
     ],
-    tip:'Scouts who earn respect with tools are the ones who move SLOWLY and deliberately. Speed is never the goal.'
+    tip:'Scouts who earn lasting respect with tools are the ones who move slowly and call out hazards when they see them. That\'s real leadership.'
   },
-  {
-    id:'tc7', title:'Respect property & the Outdoor Code',
+  { group:null, id:'tc7', badge:'t',
+    title:'Respect property & the Outdoor Code',
     quiz:'Explain what it means to respect property when using woods tools, and how the Outdoor Code applies.',
     blocks:[
-      {label:'Respecting property', text:'• Cut living trees only with permission AND a good reason\n• Dead trees may be used for firewood where permitted — but ask first\n• Never carve into picnic tables, shelters, or other structures\n• Leave the area cleaner than you found it — collect all wood scraps and chips'},
-      {label:'Outdoor Code connection', text:'The Outdoor Code calls you to be conservation-minded. Using an ax or saw on living trees without a good reason violates that pledge directly.\n\nAs an American, I will do my best to — Be clean in my outdoor manners, Be careful with fire, Be considerate in the outdoors, and Be conservation-minded.'},
+      {c:'t', label:'Respecting property', text:'• Cut living trees only with permission AND a good reason\n• Dead trees may be used for firewood where permitted — ask first\n• Never carve into structures, picnic tables, or shelters\n• Clean up all wood scraps and chips — leave the area better than you found it'},
+      {c:'t', label:'Outdoor Code connection', text:'The Outdoor Code calls you to be conservation-minded. Using an ax or saw on living trees without need violates that pledge directly.\n\n"Be conservation-minded" is the fourth line of the Outdoor Code — it applies every time you pick up an ax.'},
     ],
-    tip:'At camp, always ask a leader before cutting any tree — living or dead. "I asked permission first" is always the right answer.'
+    tip:'At camp: always ask a leader before cutting any tree. "I asked permission first" is always the right answer.'
   },
 ];
 
-let section = 'rank';
-let mode = 'study';
+// ── STATE ──────────────────────────────────────────────────────────────
+let sec = 'rank', mode = 'study';
+const learnedR = {}, learnedT = {}, quizR = {}, quizT = {};
+rankReqs.forEach(r  => { learnedR[r.id] = false; quizR[r.id] = {shown:false, knew:null}; });
+totinReqs.forEach(r => { learnedT[r.id] = false; quizT[r.id] = {shown:false, knew:null}; });
 
-const learnedRank  = {};
-const learnedTotin = {};
-const quizRank     = {};
-const quizTotin    = {};
-rankReqs.forEach(r  => { learnedRank[r.id]  = false; quizRank[r.id]  = {shown:false, knew:null}; });
-totinReqs.forEach(r => { learnedTotin[r.id] = false; quizTotin[r.id] = {shown:false, knew:null}; });
+const activeReqs    = () => sec==='rank' ? rankReqs   : totinReqs;
+const activeLearned = () => sec==='rank' ? learnedR   : learnedT;
+const activeQuiz    = () => sec==='rank' ? quizR      : quizT;
+const isTotin       = () => sec==='totin';
+const col           = () => isTotin() ? 't' : 'g';
 
-function activeReqs()   { return section==='rank' ? rankReqs   : totinReqs; }
-function activeLearned(){ return section==='rank' ? learnedRank : learnedTotin; }
-function activeQuiz()   { return section==='rank' ? quizRank   : quizTotin; }
-function isTotin()      { return section==='totin'; }
-
-function setSection(s) {
-  section = s;
-  document.getElementById('tab-rank').classList.toggle('active', s==='rank');
-  document.getElementById('tab-totin').classList.toggle('active', s==='totin');
-  document.getElementById('tab-rank').classList.remove('totin');
-  document.getElementById('tab-totin').classList.toggle('totin', true);
-  const studyBtn = document.getElementById('btn-study');
-  const quizBtn  = document.getElementById('btn-quiz');
-  studyBtn.classList.toggle('totin-mode', s==='totin');
-  quizBtn.classList.toggle('totin-mode', s==='totin');
-  updateProgress();
-  render();
+function setSec(s) {
+  sec = s;
+  ['rank','totin'].forEach(x => document.getElementById('tab-'+x).classList.remove('active'));
+  document.getElementById('tab-'+s).classList.add('active');
+  const tb = isTotin();
+  ['btn-study','btn-quiz'].forEach(id => document.getElementById(id).classList.toggle('tbtn', tb));
+  updateProgress(); render();
 }
 
 function setMode(m) {
@@ -302,119 +406,96 @@ function setMode(m) {
 }
 
 function updateProgress() {
-  const learned = activeLearned();
-  const reqs    = activeReqs();
-  const n   = Object.values(learned).filter(Boolean).length;
-  const tot = reqs.length;
-  const pct = Math.round(n/tot*100);
+  const L = activeLearned(), R = activeReqs();
+  const n = Object.values(L).filter(Boolean).length, tot = R.length;
+  const pct = tot ? Math.round(n/tot*100) : 0;
   document.getElementById('pbar').style.width = pct+'%';
   document.getElementById('prog-label').textContent = n+' / '+tot+' learned';
-  document.getElementById('prog-section-label').textContent = isTotin() ? 'Totin\' Chip' : 'Scout Rank (1a\u20131f)';
+  document.getElementById('prog-section-lbl').textContent = isTotin() ? 'Totin\' Chip' : 'Scout Rank — All Requirements';
 }
 
-function toggleCard(id) {
-  const el = document.getElementById('card-'+id);
-  if(el) el.classList.toggle('open');
-}
-
-function markLearned(id) {
-  activeLearned()[id] = !activeLearned()[id];
-  updateProgress(); render();
-}
-
-function revealAnswer(id) {
-  activeQuiz()[id].shown = true; render();
-}
-
-function markKnew(id, val) {
-  activeQuiz()[id].knew = val;
-  activeLearned()[id] = val;
-  updateProgress(); render();
-}
+function toggleCard(id){ const el=document.getElementById('card-'+id); if(el) el.classList.toggle('open'); }
+function markLearned(id){ activeLearned()[id]=!activeLearned()[id]; updateProgress(); render(); }
+function revealAnswer(id){ activeQuiz()[id].shown=true; render(); }
+function markKnew(id,val){ activeQuiz()[id].knew=val; activeLearned()[id]=val; updateProgress(); render(); }
 
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;'); }
 function nl(s) { return esc(s).replace(/\n/g,'<br>'); }
 
 function render() {
-  const main    = document.getElementById('main');
-  const reqs    = activeReqs();
-  const learned = activeLearned();
-  const quiz    = activeQuiz();
-  const totin   = isTotin();
-  let html = '';
-
-  const allDone = reqs.every(r => learned[r.id]);
+  const main=document.getElementById('main');
+  const reqs=activeReqs(), L=activeLearned(), Q=activeQuiz(), totin=isTotin(), c=col();
+  let html='', lastGroup=null;
 
   if(totin) {
-    html += '<div class="notice-box"><div class="notice-label">Important — hands-on requirement</div>';
-    html += 'Requirements TC2, TC3, and TC4 require a live DEMONSTRATION to a Scout leader — you must physically show safe handling of knife, ax, and saw. This guide prepares you with the rules, but you\'ll need to demonstrate in person to earn your Totin\' Chip.';
-    html += '</div>';
+    html+='<div class="notice-box"><div class="notice-lbl">Hands-on requirement</div>TC2, TC3, and TC4 require a live DEMONSTRATION to a Scout leader — not just knowing the rules. This guide prepares you with the knowledge, but you must demonstrate safe handling in person.</div>';
+  } else {
+    html+='<div class="info-box"><div class="info-lbl">Full rank — all 7 requirements</div>Req 1–3 and 5–6 are knowledge-based. Req 4 (knots &amp; rope) and parts of Req 3 (patrol details) require in-person sign-off or troop info. Req 7 coaching is in the last card.</div>';
   }
 
+  const allDone = reqs.every(r => L[r.id]);
   if(allDone) {
-    const allKnew = mode==='quiz' ? reqs.every(r => quiz[r.id].knew===true) : true;
-    html += '<div class="complete-banner'+(totin?' totin':'')+'">';
-    html += '<div class="icon">&#9733;</div>';
-    if(mode==='quiz'&&allKnew) { html += '<p>Ready for sign-off!</p><span>'+(totin?'You know all the rules — go find a leader to demonstrate the tools.':'You know all six cold. Time to find your Scoutmaster.')+'</span>'; }
-    else if(mode==='quiz')     { html += '<p>Keep practicing!</p><span>Review the ones you missed, then try again.</span>'; }
-    else                       { html += '<p>'+(totin?'All 7 sections studied!':'All 6 studied!')+'</p><span>Switch to Quiz mode to test yourself.</span>'; }
-    html += '</div>';
+    const allKnew = mode==='quiz' ? reqs.every(r => Q[r.id].knew===true) : true;
+    html+='<div class="complete-banner '+c+'">';
+    html+='<div class="icon">&#9733;</div>';
+    if(mode==='quiz'&&allKnew) html+='<p>Ready for sign-off!</p><span>'+(totin?'You know all the rules. Go find a leader to demonstrate the tools.':'You know all requirements. Schedule your Scoutmaster conference.')+'</span>';
+    else if(mode==='quiz')    html+='<p>Keep at it!</p><span>Review the ones you missed, then retry.</span>';
+    else                      html+='<p>All '+(totin?'7':'requirements')+' studied!</p><span>Switch to Quiz mode to test yourself.</span>';
+    html+='</div>';
   }
 
   if(mode==='study') {
     reqs.forEach(r => {
-      const done = learned[r.id];
-      html += '<div class="req-card'+(done?' done-card':'')+(totin?' totin-card':'')+'" id="card-'+r.id+'">';
-      html += '<div class="req-card-header" onclick="toggleCard(\''+r.id+'\')">';
-      html += '<span class="req-badge'+(totin?' totin':'')+'">'+r.id+'</span>';
-      html += '<span class="req-card-title">'+esc(r.title)+'</span>';
-      if(done) html += '<span style="color:'+(totin?'var(--brown-mid)':'#1a6b3a')+';font-size:18px">&#10003;</span>';
-      html += '<span class="chevron">&#8964;</span>';
-      html += '</div>';
-      html += '<div class="req-card-body">';
+      if(r.group && r.group!==lastGroup) {
+        html+='<div class="section-divider">'+esc(r.group)+'</div>';
+        lastGroup=r.group;
+      }
+      const done=L[r.id];
+      html+='<div class="req-card'+(done?' done-card':'')+(totin?' tc':'')+'" id="card-'+r.id+'">';
+      html+='<div class="card-hdr" onclick="toggleCard(\''+r.id+'\')">';
+      html+='<span class="rbadge '+r.badge+'">'+r.id+'</span>';
+      html+='<span class="card-title">'+esc(r.title)+'</span>';
+      if(done) html+='<span style="color:'+(totin?'var(--brown-mid)':'var(--green-mid)')+';font-size:18px">&#10003;</span>';
+      html+='<span class="chev">&#8964;</span>';
+      html+='</div><div class="card-body">';
+      if(r.video) {
+        html+='<div class="video-wrap"><div class="video-lbl">&#9654; Tutorial video — '+esc(r.video.label)+'</div>';
+        html+='<div class="video-frame"><iframe src="https://www.youtube.com/embed/'+r.video.id+'?rel=0" allowfullscreen loading="lazy" title="'+esc(r.video.label)+'"></iframe></div></div>';
+      }
       r.blocks.forEach(b => {
-        html += '<div class="content-block">';
-        html += '<div class="content-label'+(totin?' totin':'')+'">'+esc(b.label)+'</div>';
-        html += '<div class="content-text'+(totin?' totin':'')+'">'+nl(b.text)+'</div>';
-        html += '</div>';
+        html+='<div class="cblock"><div class="clabel '+b.c+'">'+esc(b.label)+'</div><div class="ctext '+b.c+'">'+nl(b.text)+'</div></div>';
       });
-      if(r.tip) html += '<div class="tip-box"><div class="tip-label">Tip</div>'+esc(r.tip)+'</div>';
-      html += '<button class="mark-btn'+(done?' done':'')+(totin&&done?' totin':'')+'" onclick="markLearned(\''+r.id+'\')">';
-      html += done ? '<span class="done-check">&#10003;</span> Got it — mark incomplete' : 'Mark as learned';
-      html += '</button>';
-      html += '</div></div>';
+      if(r.tip) html+='<div class="tip-box"><div class="tip-lbl">Tip</div>'+nl(r.tip)+'</div>';
+      html+='<button class="mark-btn'+(done?' done '+c:'')+'" onclick="markLearned(\''+r.id+'\')">';
+      html+=done?'<span class="done-check">&#10003;</span> Got it — mark incomplete':'Mark as learned';
+      html+='</button></div></div>';
     });
   } else {
     reqs.forEach(r => {
-      const qs = quiz[r.id];
-      html += '<div class="quiz-card">';
-      html += '<div class="quiz-badge-row"><span class="req-badge'+(totin?' totin':'')+'">'+r.id+'</span><span style="font-size:13px;color:'+(totin?'var(--brown-mid)':'#5a7060')+';font-weight:500">'+esc(r.title)+'</span></div>';
-      html += '<div class="quiz-q">'+esc(r.quiz)+'</div>';
+      const qs=Q[r.id];
+      html+='<div class="quiz-card">';
+      html+='<div class="quiz-badge-row"><span class="rbadge '+r.badge+'">'+r.id+'</span><span style="font-size:13px;color:'+(totin?'var(--brown-mid)':'var(--text-muted)')+';font-weight:500">'+esc(r.title)+'</span></div>';
+      html+='<div class="quiz-q">'+esc(r.quiz)+'</div>';
       if(!qs.shown) {
-        html += '<button class="reveal-btn'+(totin?' totin':'')+'" onclick="revealAnswer(\''+r.id+'\')">Say it out loud, then show answer</button>';
+        html+='<button class="reveal-btn '+c+'" onclick="revealAnswer(\''+r.id+'\')">Say it out loud, then show answer</button>';
       } else {
-        html += '<div class="answer-area shown">';
+        html+='<div class="answer-area shown">';
         r.blocks.forEach(b => {
-          html += '<div class="content-block">';
-          html += '<div class="content-label'+(totin?' totin':'')+'">'+esc(b.label)+'</div>';
-          html += '<div class="content-text'+(totin?' totin':'')+'">'+nl(b.text)+'</div>';
-          html += '</div>';
+          html+='<div class="cblock"><div class="clabel '+b.c+'">'+esc(b.label)+'</div><div class="ctext '+b.c+'">'+nl(b.text)+'</div></div>';
         });
-        html += '<div class="knew-row">';
-        html += '<button class="knew-btn yes'+(qs.knew===true?' sel-yes':'')+'" onclick="markKnew(\''+r.id+'\',true)">&#10003; Knew it</button>';
-        html += '<button class="knew-btn no'+(qs.knew===false?' sel-no':'')+'" onclick="markKnew(\''+r.id+'\',false)">&#8635; Need practice</button>';
-        html += '</div>';
-        html += '</div>';
+        html+='<div class="knew-row">';
+        html+='<button class="knew-btn yes'+(qs.knew===true?' sel-yes':'')+'" onclick="markKnew(\''+r.id+'\',true)">&#10003; Knew it</button>';
+        html+='<button class="knew-btn no'+(qs.knew===false?' sel-no':'')+'" onclick="markKnew(\''+r.id+'\',false)">&#8635; Need practice</button>';
+        html+='</div></div>';
       }
-      html += '</div>';
+      html+='</div>';
     });
   }
 
-  main.innerHTML = html;
+  main.innerHTML=html;
 }
 
-render();
-updateProgress();
+render(); updateProgress();
 </script>
 </body>
 </html>
