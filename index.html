@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scout Study Guide — Troop 1B</title>
+<title>Scout Guide — Troop 1B</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a3d1f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Scout Guide">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon-180.png">
+<link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+<!-- Splash colors for iOS -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--gd:#0a3d1f;--gm:#1a6b3a;--gl:#2d9e5a;--gp:#e8f5ee;--am:#c8821a;--ap:#fef3e2;--br:#5c3a1e;--bp:#f5ede3;--bm:#8b5e3c;--bl:#1a4d7a;--blp:#e8f0f8;--blm:#2d6fa5;--rp:#fdecea;--rd:#c0392b;--tx:#1a2e1e;--tm:#5a7060;--bo:#cde0d4;--bg:#f4f9f5;--wh:#ffffff;--ra:10px}
@@ -38,7 +54,7 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 .nbtn{font-family:'Oswald',sans-serif;font-size:14px;padding:8px 22px;border-radius:99px;border:2px solid var(--gm);background:transparent;color:var(--gm);cursor:pointer;transition:all .18s}
 .nbtn:hover,.nbtn.sel{background:var(--gd);border-color:var(--gd);color:white}
 /* cards */
-.rc{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);margin-bottom:9px}
+.rc{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);margin-bottom:9px;overflow:hidden}
 .rc.dk{border-color:var(--gl)}.rc.dk.tc{border-color:var(--bm)}
 .ch{display:flex;align-items:center;gap:9px;padding:.8rem 1rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .rc.dk .ch{background:var(--gp)}.rc.dk.tc .ch{background:var(--bp)}
@@ -47,13 +63,14 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 .ct{flex:1;font-size:13px;font-weight:500;color:var(--tx);line-height:1.3}
 .cv{font-size:17px;color:var(--tm);transition:transform .2s;flex-shrink:0}
 .rc.open .cv{transform:rotate(180deg)}
-.cb{display:none;border-top:1px solid var(--bo);padding:.9rem}
+.cb{display:none;border-top:1px solid var(--bo);padding:.9rem .9rem 1.1rem}
 .rc.open .cb{display:block}
 /* infographic */
 .ig-wrap{margin-bottom:13px}
 .ig-lbl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:5px;font-weight:500}
 .ig-lbl.t{color:var(--bm)}
-.ig-wrap img{width:100%;border-radius:8px;display:block;height:auto;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.ig-wrap img{width:100%;border-radius:8px;display:block;height:auto;cursor:zoom-in;-webkit-tap-highlight-color:transparent;margin-bottom:0}
+.ig-wrap:last-child img{border-radius:8px}
 .ig-hint{font-size:11px;color:var(--tm);margin-top:4px;text-align:right;font-style:italic}
 .ig-note{font-size:11px;color:var(--am);margin-top:4px;font-style:italic;padding-left:4px;border-left:2px solid var(--am)}
 /* lightbox */
@@ -131,7 +148,7 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 </head>
 <body>
 <header>
-  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260603.1</div>
+  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260603.4</div>
   <div class="ey">Scouts BSA — Troop 1B Colonial Virginia Council</div>
   <h1>Scout Study Guide</h1>
   <p>Full Scout rank (1–7) · Totin' Chip · Quiz mode · Progress tracking</p>
@@ -462,18 +479,29 @@ function toggleCard(id){document.getElementById('card-'+id)?.classList.toggle('o
 
 function markLearned(id){
   AL()[id]=!AL()[id];
-  logActivity('study',id+' marked '+(AL()[id]?'learned':'incomplete'));
+  const status=AL()[id]?'learned':'incomplete';
+  logActivity('study',id+' marked '+status);
+  sheetLog('study', id+' — '+status);
   updateProgress();render();
 }
 function revealAnswer(id){
   AQ()[id].shown=true;
   logActivity('quiz_reveal','Revealed: '+id);
+  sheetLog('quiz_reveal', id);
   render();
 }
 function markKnew(id,val){
   AQ()[id].knew=val;AL()[id]=val;
-  logActivity('quiz_answer',id+' — '+(val?'knew it':'needs practice'));
+  const result=val?'knew it':'needs practice';
+  logActivity('quiz_answer',id+' — '+result);
+  sheetLog('quiz_answer', id+' — '+result);
   updateProgress();render();
+}
+
+function setNameAndRender(n){
+  setName(n);
+  sheetLog('identity','Name set: '+n);
+  render();
 }
 
 function updateProgress(){
@@ -683,9 +711,48 @@ function clearData(){
   }
 }
 
+// ── SERVICE WORKER ───────────────────────────────────────────────────────────
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(r => console.log('SW registered:', r.scope))
+      .catch(e => console.log('SW failed:', e));
+  });
+}
+
+// ── GOOGLE SHEETS TRACKING ───────────────────────────────────────────────────
+// FORM_URL: paste your Google Form submit URL here when ready
+// FIELD IDs: map to your form field entry IDs
+const GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfR2306WGwFo-VKUExN-dDb0Y06-9kwWUkXJ54JYVjeMmOeiA/formResponse';
+const GFORM_FIELDS = {
+  timestamp:  'entry.1484556030',
+  name:       'entry.516967220',
+  device:     'entry.1956166151',
+  session:    'entry.1570994094',
+  tab:        'entry.1693330531',
+  event_type: 'entry.1583117665',
+  detail:     'entry.936313950',
+};
+
+function sheetLog(eventType, detail) {
+  if (!GFORM_URL) return;  // not configured yet — skip silently
+  try {
+    const body = new FormData();
+    body.append(GFORM_FIELDS.timestamp,  new Date().toISOString());
+    body.append(GFORM_FIELDS.name,       getName() || 'Unknown');
+    body.append(GFORM_FIELDS.device,     DEVICE);
+    body.append(GFORM_FIELDS.session,    SID);
+    body.append(GFORM_FIELDS.tab,        'scout_study');
+    body.append(GFORM_FIELDS.event_type, eventType);
+    body.append(GFORM_FIELDS.detail,     detail);
+    fetch(GFORM_URL, { method:'POST', mode:'no-cors', body });
+  } catch(e) { /* fail silently */ }
+}
+
 // ── BOOT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLB();});
 logActivity('session_start','Opened study guide');
+sheetLog('session_start', 'Opened Scout Guide');
 render();updateProgress();
 </script>
 </body>
