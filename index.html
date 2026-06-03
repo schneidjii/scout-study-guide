@@ -38,7 +38,7 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 .nbtn{font-family:'Oswald',sans-serif;font-size:14px;padding:8px 22px;border-radius:99px;border:2px solid var(--gm);background:transparent;color:var(--gm);cursor:pointer;transition:all .18s}
 .nbtn:hover,.nbtn.sel{background:var(--gd);border-color:var(--gd);color:white}
 /* cards */
-.rc{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);margin-bottom:9px;overflow:hidden}
+.rc{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);margin-bottom:9px}
 .rc.dk{border-color:var(--gl)}.rc.dk.tc{border-color:var(--bm)}
 .ch{display:flex;align-items:center;gap:9px;padding:.8rem 1rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .rc.dk .ch{background:var(--gp)}.rc.dk.tc .ch{background:var(--bp)}
@@ -53,8 +53,15 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 .ig-wrap{margin-bottom:13px}
 .ig-lbl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:5px;font-weight:500}
 .ig-lbl.t{color:var(--bm)}
-.ig-wrap img{width:100%;border-radius:8px;display:block}
+.ig-wrap img{width:100%;border-radius:8px;display:block;height:auto;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.ig-hint{font-size:11px;color:var(--tm);margin-top:4px;text-align:right;font-style:italic}
 .ig-note{font-size:11px;color:var(--am);margin-top:4px;font-style:italic;padding-left:4px;border-left:2px solid var(--am)}
+/* lightbox */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;flex-direction:column;align-items:center;justify-content:center;padding:12px;-webkit-tap-highlight-color:transparent}
+.lb-overlay.open{display:flex}
+.lb-overlay img{max-width:100%;max-height:calc(100vh - 60px);object-fit:contain;border-radius:8px;display:block}
+.lb-close{position:absolute;top:14px;right:16px;font-size:28px;color:white;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:sans-serif;line-height:1}
+.lb-hint{color:rgba(255,255,255,0.5);font-size:12px;margin-top:10px;text-align:center}
 /* video */
 .vw{margin-bottom:13px}
 .vl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:5px;font-weight:500}
@@ -142,6 +149,13 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
   <button class="mb" id="btn-quiz" onclick="setMode('quiz')">Quiz me</button>
 </div>
 <div class="main" id="main"></div>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">&#10005;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-hint">Tap anywhere to close</div>
+</div>
 
 <script>
 // ── IDENTITY ────────────────────────────────────────────────────────────────
@@ -415,6 +429,16 @@ const col=()=>isTc()?'t':'g';
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
 function nl(s){return esc(s).replace(/\n/g,'<br>');}
 function tsFmt(ts){const d=new Date(ts);return d.toLocaleDateString()+'  '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});}
+function openLB(src,alt){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-img').alt=alt||'';
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow='';
+}
 
 // ── SECTION/MODE ─────────────────────────────────────────────────────────────
 function setSec(s){
@@ -517,13 +541,15 @@ function render(){
       // image(s)
       if(r.img){
         html+='<div class="ig-wrap"><div class="ig-lbl'+(tc?' t':'')+'">&#128247; '+esc(r.img.lbl)+'</div>';
-        html+='<img src="'+r.img.src+'" alt="'+esc(r.img.lbl)+'" loading="lazy">';
+        html+='<img src="'+r.img.src+'" alt="'+esc(r.img.lbl)+'" loading="lazy" onclick="openLB(\''+r.img.src+'\',\''+r.img.lbl.replace(/'/g,'')+'\')">'; 
         if(r.img.note) html+='<div class="ig-note">'+esc(r.img.note)+'</div>';
+        html+='<div class="ig-hint">&#128269; Tap image to expand</div>';
         html+='</div>';
       }
       if(r.img2){
         html+='<div class="ig-wrap"><div class="ig-lbl'+(tc?' t':'')+'">&#128247; '+esc(r.img2.lbl)+'</div>';
-        html+='<img src="'+r.img2.src+'" alt="'+esc(r.img2.lbl)+'" loading="lazy">';
+        html+='<img src="'+r.img2.src+'" alt="'+esc(r.img2.lbl)+'" loading="lazy" onclick="openLB(\''+r.img2.src+'\',\''+r.img2.lbl.replace(/'/g,'')+'\')">'; 
+        html+='<div class="ig-hint">&#128269; Tap image to expand</div>';
         html+='</div>';
       }
       // video(s)
@@ -657,6 +683,7 @@ function clearData(){
 }
 
 // ── BOOT ─────────────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLB();});
 logActivity('session_start','Opened study guide');
 render();updateProgress();
 </script>
