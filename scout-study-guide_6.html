@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scout Guide — Troop 1B</title>
+
+<!-- PWA -->
+<link rel="manifest" href="/scout-study-guide/manifest.json">
+<meta name="theme-color" content="#0a3d1f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Scout Guide">
+<link rel="apple-touch-icon" href="/scout-study-guide/icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/scout-study-guide/icon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/scout-study-guide/icon-180.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/scout-study-guide/icon-192.png">
+<!-- Splash colors for iOS -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gd:#0a3d1f;--gm:#1a6b3a;--gl:#2d9e5a;--gp:#e8f5ee;--am:#c8821a;--ap:#fef3e2;--br:#5c3a1e;--bp:#f5ede3;--bm:#8b5e3c;--bl:#1a4d7a;--blp:#e8f0f8;--blm:#2d6fa5;--rp:#fdecea;--rd:#c0392b;--tx:#1a2e1e;--tm:#5a7060;--bo:#cde0d4;--bg:#f4f9f5;--wh:#ffffff;--ra:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+header{background:var(--gd);padding:1.25rem 1.25rem 1rem;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;top:-30px;right:-30px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,0.04)}
+.ey{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gl);margin-bottom:5px}
+header h1{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:white;line-height:1.2;margin-bottom:4px}
+header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
+.sticky{background:var(--wh);border-bottom:1px solid var(--bo);padding:.85rem 1.25rem;position:sticky;top:0;z-index:100}
+.pt{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.pt span{font-size:12px;font-weight:500;color:var(--tm)}
+.pt strong{font-family:'Oswald',sans-serif;font-size:14px;color:var(--gm)}
+.pbt{height:6px;background:var(--gp);border-radius:99px;overflow:hidden}
+.pbf{height:6px;background:var(--gl);border-radius:99px;transition:width .4s ease}
+.stabs{display:flex;background:var(--wh);border-bottom:2px solid var(--bo)}
+.stab{flex:1;font-family:'Oswald',sans-serif;font-size:11px;font-weight:500;letter-spacing:.03em;padding:8px 4px;border:none;background:transparent;color:var(--tm);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .18s;text-align:center;line-height:1.3}
+.stab.active{color:var(--gd);border-bottom-color:var(--gm)}
+.stab.tc.active{color:var(--br);border-bottom-color:var(--bm)}
+.stab.res.active{color:var(--bl);border-bottom-color:var(--blm)}
+.mbar{display:flex;gap:6px;padding:.65rem 1.25rem;background:var(--wh);border-bottom:1px solid var(--bo)}
+.mb{flex:1;font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:.03em;padding:7px;border-radius:var(--ra);border:1.5px solid var(--bo);background:transparent;color:var(--tm);cursor:pointer;transition:all .18s}
+.mb.active{background:var(--gd);border-color:var(--gd);color:white}
+.mb.active.tb{background:var(--br);border-color:var(--br)}
+.main{padding:.85rem 1.25rem 3rem}
+/* name gate — full screen, blocks all content */
+.name-gate{position:fixed;inset:0;background:var(--gd);z-index:9000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center}
+.name-gate .gate-icon{margin-bottom:1.25rem}
+.name-gate h2{font-family:'Oswald',sans-serif;font-size:26px;font-weight:600;color:white;margin-bottom:8px}
+.name-gate p{font-size:14px;color:rgba(255,255,255,0.65);margin-bottom:2rem;line-height:1.6;max-width:280px}
+.name-gate .gate-btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px}
+.gate-btn{font-family:'Oswald',sans-serif;font-size:17px;font-weight:500;letter-spacing:.04em;padding:14px;border-radius:var(--ra);border:2px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:transparent}
+.gate-btn:active{background:rgba(255,255,255,0.25)}
+.gate-btn.dj{border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);font-size:14px;padding:10px;margin-top:6px}
+/* name picker inline (results tab change button) */
+.name-picker{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);padding:1.25rem;text-align:center;margin-bottom:14px}
+.name-picker h3{font-family:'Oswald',sans-serif;font-size:16px;color:var(--gd);margin-bottom:8px}
+.name-picker p{font-size:13px;color:var(--tm);margin-bottom:14px}
+.name-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.nbtn{font-family:'Oswald',sans-serif;font-size:14px;padding:8px 22px;border-radius:99px;border:2px solid var(--gm);background:transparent;color:var(--gm);cursor:pointer;transition:all .18s}
+.nbtn:hover,.nbtn.sel{background:var(--gd);border-color:var(--gd);color:white}
+/* cards */
+.rc{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);margin-bottom:9px;overflow:hidden}
+.rc.dk{border-color:var(--gl)}.rc.dk.tc{border-color:var(--bm)}
+.ch{display:flex;align-items:center;gap:9px;padding:.8rem 1rem;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.rc.dk .ch{background:var(--gp)}.rc.dk.tc .ch{background:var(--bp)}
+.rb{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;padding:2px 7px;border-radius:5px;flex-shrink:0;letter-spacing:.03em;color:white}
+.rb.g{background:var(--gd)}.rb.b{background:var(--bl)}.rb.t{background:var(--br)}
+.ct{flex:1;font-size:13px;font-weight:500;color:var(--tx);line-height:1.3}
+.cv{font-size:17px;color:var(--tm);transition:transform .2s;flex-shrink:0}
+.rc.open .cv{transform:rotate(180deg)}
+.cb{display:none;border-top:1px solid var(--bo);padding:.9rem .9rem 1.1rem}
+.rc.open .cb{display:block}
+/* infographic */
+.ig-wrap{margin-bottom:13px}
+.ig-lbl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:5px;font-weight:500}
+.ig-lbl.t{color:var(--bm)}
+.ig-wrap img{width:100%;border-radius:8px;display:block;height:auto;cursor:zoom-in;-webkit-tap-highlight-color:transparent;margin-bottom:0}
+.ig-wrap:last-child img{border-radius:8px}
+.ig-hint{font-size:11px;color:var(--tm);margin-top:4px;text-align:right;font-style:italic}
+.ig-note{font-size:11px;color:var(--am);margin-top:4px;font-style:italic;padding-left:4px;border-left:2px solid var(--am)}
+/* lightbox */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;flex-direction:column;align-items:center;justify-content:center;padding:12px;-webkit-tap-highlight-color:transparent}
+.lb-overlay.open{display:flex}
+.lb-overlay img{max-width:100%;max-height:calc(100vh - 60px);object-fit:contain;border-radius:8px;display:block}
+.lb-close{position:absolute;top:14px;right:16px;font-size:28px;color:white;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:sans-serif;line-height:1}
+.lb-hint{color:rgba(255,255,255,0.5);font-size:12px;margin-top:10px;text-align:center}
+/* video */
+.vw{margin-bottom:13px}
+.vl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:5px;font-weight:500}
+.vf{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;background:#000}
+.vf iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:8px}
+.vtabs{display:flex;gap:5px;margin-bottom:8px}
+.vtab{font-size:11px;padding:3px 10px;border-radius:99px;border:1px solid var(--bo);background:transparent;color:var(--tm);cursor:pointer}
+.vtab.active{background:var(--gm);border-color:var(--gm);color:white}
+/* content blocks */
+.cblk{margin-bottom:12px}
+.cl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-weight:500}
+.cl.g{color:var(--gm)}.cl.b{color:var(--blm)}.cl.t{color:var(--bm)}
+.cx{border-radius:7px;padding:9px 11px;font-size:13px;line-height:1.7;color:var(--tx);white-space:pre-line}
+.cx.g{background:var(--gp)}.cx.b{background:var(--blp)}.cx.t{background:var(--bp)}
+.tip{background:var(--ap);border-left:3px solid var(--am);border-radius:0 7px 7px 0;padding:8px 11px;font-size:12px;line-height:1.55;color:#5a3a00;margin-bottom:12px}
+.tl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--am);margin-bottom:2px;font-weight:500}
+.notice{background:var(--bp);border-left:3px solid var(--bm);border-radius:0 7px 7px 0;padding:9px 11px;font-size:12px;line-height:1.55;color:var(--br);margin-bottom:12px}
+.nl{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--bm);margin-bottom:2px;font-weight:500}
+.info{background:var(--blp);border-left:3px solid var(--blm);border-radius:0 7px 7px 0;padding:9px 11px;font-size:12px;line-height:1.55;color:var(--bl);margin-bottom:12px}
+.il{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--blm);margin-bottom:2px;font-weight:500}
+.mkb{width:100%;padding:9px;border-radius:7px;border:1.5px solid var(--bo);background:transparent;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;color:var(--tm);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:5px}
+.mkb.dk.g{background:var(--gp);border-color:var(--gl);color:var(--gd)}
+.mkb.dk.t{background:var(--bp);border-color:var(--bm);color:var(--br)}
+/* quiz */
+.qc{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);margin-bottom:9px;padding:.9rem}
+.qbr{display:flex;align-items:center;gap:7px;margin-bottom:9px}
+.qq{font-size:14px;font-weight:500;line-height:1.5;color:var(--tx);margin-bottom:11px}
+.rvb{width:100%;padding:9px;border-radius:7px;border:1.5px solid;background:transparent;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .18s}
+.rvb.g{border-color:var(--gm);color:var(--gm)}.rvb.t{border-color:var(--bm);color:var(--bm)}
+.aa{display:none;margin-top:9px}.aa.sh{display:block}
+.kr{display:flex;gap:7px;margin-top:9px}
+.kb{flex:1;padding:8px 5px;border-radius:7px;border:1.5px solid var(--bo);background:transparent;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .18s}
+.kb.ky{color:var(--gm)}.kb.kn{color:var(--rd)}
+.kb.sy{background:var(--gp);border-color:var(--gl);color:var(--gd)}
+.kb.sn{background:var(--rp);border-color:#e08080;color:var(--rd)}
+.cb2{border-radius:var(--ra);padding:1.1rem;text-align:center;margin-bottom:11px;color:white}
+.cb2.g{background:var(--gd)}.cb2.t{background:var(--br)}
+.cb2 .ic{font-size:26px;margin-bottom:5px}
+.cb2 p{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;margin-bottom:3px}
+.cb2 span{font-size:12px;color:rgba(255,255,255,.65)}
+.sdiv{font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);padding:5px 0 7px;margin-top:5px;border-bottom:1px solid var(--bo);margin-bottom:9px}
+/* Results tab */
+.res-header{background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);padding:1rem;margin-bottom:10px}
+.res-header h3{font-family:'Oswald',sans-serif;font-size:15px;color:var(--bl);margin-bottom:4px}
+.res-header p{font-size:12px;color:var(--tm)}
+.user-card{background:var(--blp);border:1px solid var(--blm);border-radius:var(--ra);padding:.85rem 1rem;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.user-avatar{width:36px;height:36px;border-radius:50%;background:var(--bl);color:white;font-family:'Oswald',sans-serif;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.user-info{flex:1}
+.user-name{font-size:14px;font-weight:500;color:var(--tx)}
+.user-device{font-size:11px;color:var(--tm)}
+.res-section{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);padding:5px 0 7px;margin-top:12px;border-bottom:1px solid var(--bo);margin-bottom:9px}
+.res-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:.5px solid var(--bo)}
+.res-row:last-child{border-bottom:none}
+.res-req{flex:1;font-size:13px;color:var(--tx)}
+.res-badge{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;flex-shrink:0}
+.rb-pass{background:var(--gp);color:var(--gd)}.rb-miss{background:var(--rp);color:var(--rd)}.rb-skip{background:#f0f0f0;color:#888}.rb-todo{background:#fffbe6;color:#a07000}
+.stat-row{display:flex;gap:8px;margin-bottom:12px}
+.stat-box{flex:1;background:var(--wh);border:1px solid var(--bo);border-radius:var(--ra);padding:.75rem;text-align:center}
+.stat-num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:var(--gd)}
+.stat-lbl{font-size:11px;color:var(--tm);margin-top:2px}
+.clear-btn{width:100%;margin-top:14px;padding:9px;border-radius:7px;border:1.5px solid var(--rd);background:transparent;font-family:'Source Sans 3',sans-serif;font-size:13px;color:var(--rd);cursor:pointer}
+.activity-item{font-size:12px;color:var(--tm);padding:5px 0;border-bottom:.5px solid var(--bo);display:flex;justify-content:space-between}
+.activity-item:last-child{border-bottom:none}
+.activity-time{font-size:11px;color:#aaa}
+.no-data{text-align:center;padding:2rem;color:var(--tm);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260604.8</div>
+  <div class="ey">Scouts BSA — Troop 1B Colonial Virginia Council</div>
+  <h1>Scout Study Guide</h1>
+  <div id="welcome-msg" style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:4px;min-height:18px;line-height:1.4"></div>
+</header>
+<div class="sticky">
+  <div class="pt"><span id="psl">Scout Rank</span><strong id="pl">0 / 0 learned</strong></div>
+  <div class="pbt"><div class="pbf" id="pb" style="width:0%"></div></div>
+</div>
+<div class="stabs">
+  <button class="stab active" id="tab-rank" onclick="setSec('rank')">Scout Rank<br><span style="font-size:9px;font-weight:400">Req 1–7</span></button>
+  <button class="stab tc" id="tab-totin" onclick="setSec('totin')">Totin' Chip<br><span style="font-size:9px;font-weight:400">Woods tools</span></button>
+  <button class="stab res" id="tab-res" onclick="setSec('results')">Results<br><span style="font-size:9px;font-weight:400">Progress log</span></button>
+</div>
+<div class="mbar" id="mbar">
+  <button class="mb active" id="btn-study" onclick="setMode('study')">Study</button>
+  <button class="mb" id="btn-quiz" onclick="setMode('quiz')">Quiz me</button>
+</div>
+<div class="main" id="main"></div>
+
+<!-- Name gate — shown until name is selected -->
+<div class="name-gate" id="name-gate" style="display:none">
+  <div class="gate-icon"><img src="/scout-study-guide/icon-192.png" alt="Scout Guide" style="width:96px;height:96px;border-radius:22px;box-shadow:0 4px 24px rgba(0,0,0,0.4)"></div>
+  <h2>Who's studying?</h2>
+  <p>Select your name so your progress is tracked correctly. You won't be able to skip this.</p>
+  <div class="gate-btns">
+    <button class="gate-btn" onclick="setNameAndRender('DJ3')">DJ3<span style="font-size:12px;opacity:0.7;display:block;font-family:'Source Sans 3',sans-serif;font-weight:400;margin-top:2px">Donald John</span></button>
+    <button class="gate-btn" onclick="setNameAndRender('Gavin')">Gavin</button>
+    <button class="gate-btn dj" onclick="setNameAndRender('DJ')">DJ (Dad)</button>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">&#10005;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-hint">Tap anywhere to close</div>
+</div>
+
+<!-- Firebase via CDN compat (non-module, globally available) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+try {
+  firebase.initializeApp({
+    apiKey: "AIzaSyAFky57CziUVpPtwBkE8CNUxqHfrApzPB4",
+    authDomain: "schneider-apps.firebaseapp.com",
+    databaseURL: "https://schneider-apps-default-rtdb.firebaseio.com",
+    projectId: "schneider-apps",
+    storageBucket: "schneider-apps.firebasestorage.app",
+    messagingSenderId: "680708968242",
+    appId: "1:680708968242:web:80529bfb2ac352ee42112b"
+  });
+  const _fbDb = firebase.database();
+  window._fbReady = true;
+  window._fbSave = async function(name, data) {
+    const key = name.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
+    await _fbDb.ref('scout_study/' + key + '/progress').set(data);
+  };
+  window._fbLoad = async function(name) {
+    const key = name.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
+    const snap = await _fbDb.ref('scout_study/' + key + '/progress').get();
+    return snap.exists() ? snap.val() : null;
+  };
+  console.log('Firebase ready');
+} catch(e) {
+  console.log('Firebase init failed — running without cloud sync:', e.message);
+  window._fbReady = false;
+}
+</script>
+
+<script>
+function getDeviceLabel(){
+  const ua=navigator.userAgent;
+  let dev='Unknown Device';
+  if(/iPhone/.test(ua)) dev='iPhone';
+  else if(/iPad/.test(ua)) dev='iPad';
+  else if(/Android/.test(ua)&&/Mobile/.test(ua)) dev='Android Phone';
+  else if(/Android/.test(ua)) dev='Android Tablet';
+  else if(/Macintosh/.test(ua)) dev='Mac';
+  else if(/Windows/.test(ua)) dev='Windows PC';
+  else if(/Linux/.test(ua)) dev='Linux';
+  return dev;
+}
+function getOrCreateSession(){
+  let id=localStorage.getItem('scout_sid');
+  if(!id){id='dev_'+Math.random().toString(36).substr(2,8);localStorage.setItem('scout_sid',id);}
+  return id;
+}
+function getName(){return localStorage.getItem('scout_name')||'';}
+function setName(n){localStorage.setItem('scout_name',n);logActivity('identity','Set name: '+n);}
+const SID=getOrCreateSession();
+const DEVICE=getDeviceLabel();
+
+// ── ACTIVITY LOG ────────────────────────────────────────────────────────────
+function logActivity(type,detail){
+  const logs=JSON.parse(localStorage.getItem('scout_log')||'[]');
+  logs.unshift({ts:Date.now(),name:getName(),sid:SID,device:DEVICE,type,detail});
+  if(logs.length>200) logs.splice(200);
+  localStorage.setItem('scout_log',JSON.stringify(logs));
+}
+function getLogs(){return JSON.parse(localStorage.getItem('scout_log')||'[]');}
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let sec='rank', mode='study';
+const LR={},LT={},QR={},QT={};
+
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const rankReqs=[
+  {grp:'Requirement 1 — Scouting Knowledge',id:'1a',badge:'g',
+   title:'Scout Oath, Law, Motto & Slogan',
+   quiz:'Recite the Scout Oath, Scout Law, Scout Motto, and Scout Slogan from memory. Explain what each means.',
+   img:{src:'scout-assets/scout_oath_and_law_infographic_poster.png',lbl:'Scout Oath, Law, Motto & Slogan infographic',note:null},
+   blocks:[
+     {c:'g',lbl:'Scout Oath',tx:'On my honor I will do my best\nTo do my duty to God and my country\nAnd to obey the Scout Law;\nTo help other people at all times;\nTo keep myself physically strong,\nmentally awake, and morally straight.'},
+     {c:'g',lbl:'Scout Law — 12 Points',tx:'A Scout is:\nTrustworthy · Loyal · Helpful · Friendly · Courteous · Kind\nObedient · Cheerful · Thrifty · Brave · Clean · Reverent'},
+     {c:'g',lbl:'Scout Motto',tx:'Be Prepared.'},
+     {c:'g',lbl:'Scout Slogan',tx:'Do a Good Turn Daily.'},
+   ],
+   tip:'Law memory trick — pairs: TL · HF · CK · OC · TB · CR. Rhythm: "Trusty-Loyal, Helpful-Friendly — Courteous-Kind — Obedient-Cheerful — Thrifty-Brave — Clean-Reverent."'},
+  {grp:null,id:'1b',badge:'g',
+   title:'Scout Spirit',
+   quiz:'Explain what Scout spirit is. Describe specific ways you have shown it.',
+   img:{src:'scout-assets/scout_spirit_living_the_oath_daily.png',lbl:'Scout Spirit Every Day infographic',note:null},
+   blocks:[
+     {c:'g',lbl:'What it means',tx:'Living by the Scout Oath and Law every single day — not just at meetings, but at home, school, and in the community.'},
+     {c:'g',lbl:'How to answer',tx:'Give a REAL story. Examples:\n• Helped a neighbor without being asked\n• Was honest about a mistake even when it was easier not to be\n• Stayed cheerful when your team lost\n• Stood up for someone being picked on'},
+   ],
+   tip:'The Scoutmaster wants a specific story from your life. Think of one before your conference. "I try to follow the Scout Law" is NOT enough.'},
+  {grp:null,id:'1c',badge:'g',
+   title:'Scout Sign, Salute & Handshake',
+   quiz:'Demonstrate the Scout sign, salute, and handshake. When is each used?',
+   img:{src:'scout-assets/scout_sign_salute_handshake_guide.png',lbl:'Scout Sign, Salute & Handshake guide',note:null},
+   img2:{src:'scout-assets/flag_ceremony_basics_for_scouts.png',lbl:'Flag Ceremony Basics — salute in context',note:null},
+   blocks:[
+     {c:'g',lbl:'Scout Sign',tx:'Right hand raised, three middle fingers up, thumb holds pinky. Represents the three parts of the Oath.\nUsed when: reciting the Scout Oath or Law.'},
+     {c:'g',lbl:'Scout Salute',tx:'Three fingers flat to the forehead, palm out.\nUsed when: saluting the flag, Pledge of Allegiance, greeting Scouts in uniform.'},
+     {c:'g',lbl:'Scout Handshake',tx:'A regular handshake with the LEFT hand. Baden-Powell adopted it from an African chief who offered the left hand as a sign of trust.\nUsed when: greeting fellow Scouts.'},
+   ],
+   tip:'Practice in a mirror — you MUST physically demonstrate all three. The left handshake surprises most people.'},
+  {grp:null,id:'1d',badge:'g',
+   title:'First Class Scout Badge',
+   quiz:'Describe the First Class Scout badge and explain what each part stands for.',
+   img:{src:'scout-assets/first_class_scout_badge_breakdown.png',lbl:'First Class Scout Badge parts diagram',note:null},
+   blocks:[
+     {c:'g',lbl:'What it looks like',tx:'A silver eagle with spread wings, perched on a shield bearing the American flag, with two stars above and a scroll below reading "Be Prepared."'},
+     {c:'g',lbl:'What each part means',tx:'• Fleur-de-lis: points the way to better citizenship\n• Eagle: freedom and readiness to serve\n• Shield: loyalty to the United States\n• Scroll: "Be Prepared" — the Scout motto\n• Three points: duty to God and country, help other people, obey the Scout Law\n• Two stars: truth and knowledge\n• Knot: reminds Scouts to do a Good Turn Daily'},
+   ],
+   tip:'Look at the actual badge in your Scout handbook. The Scoutmaster may hold it up and ask you to point to parts.'},
+  {grp:null,id:'1e',badge:'g',
+   title:'Outdoor Code & Leave No Trace',
+   quiz:'Recite the Outdoor Code. List all 7 Leave No Trace principles. Explain the difference between the two.',
+   img:{src:'scout-assets/outdoor_code_and_leave_no_trace.png',lbl:'Outdoor Code vs Leave No Trace infographic',note:null},
+   blocks:[
+     {c:'g',lbl:'Outdoor Code',tx:'As an American, I will do my best to —\nBe clean in my outdoor manners,\nBe careful with fire,\nBe considerate in the outdoors, and\nBe conservation-minded.'},
+     {c:'g',lbl:'7 Leave No Trace Principles',tx:'1. Plan ahead and prepare\n2. Travel and camp on durable surfaces\n3. Dispose of waste properly\n4. Leave what you find\n5. Minimize campfire impacts\n6. Respect wildlife\n7. Be considerate of other visitors'},
+     {c:'g',lbl:'The difference',tx:'Outdoor Code = your personal pledge and attitude. LNT = specific practical techniques to minimize physical impact. One is a promise; the other is a how-to.'},
+   ],
+   tip:'LNT trick: P·T·W·L·F·W·V — "Pretty Tigers Walk Lightly, Finding Wild Valleys." Make up your own.'},
+  {grp:null,id:'1f',badge:'g',
+   title:'Pledge of Allegiance',
+   quiz:'Recite the Pledge of Allegiance from memory. Explain its meaning in your own words.',
+   blocks:[
+     {c:'g',lbl:'The Pledge',tx:'I pledge allegiance to the Flag\nof the United States of America,\nand to the Republic for which it stands,\none Nation under God, indivisible,\nwith liberty and justice for all.'},
+     {c:'g',lbl:'Key words',tx:'• Pledge = promise  • Allegiance = loyalty\n• Republic = government elected by the people\n• Indivisible = cannot be split apart\n• Liberty = freedom  • Justice = fairness'},
+   ],
+   tip:'Most Scouts know the words. The Scoutmaster wants YOUR explanation — not memorized definitions. Tell them what it means to you.'},
+  {grp:'Requirement 2 — Troop Knowledge',id:'2a',badge:'g',
+   title:'How Scouts provide troop leadership',
+   quiz:'Describe how Scouts in the troop provide its leadership.',
+   blocks:[
+     {c:'g',lbl:'Key positions',tx:'• Senior Patrol Leader (SPL) — top Scout leader, elected by Scouts\n• Assistant SPL — supports the SPL\n• Patrol Leader — leads their patrol\n• Assistant Patrol Leader\n• Others: Scribe, Quartermaster, Historian, Chaplain Aide'},
+     {c:'g',lbl:'The key idea',tx:'The troop is Scout-led, not adult-led. Adults guide from the background. Scouts make decisions, plan meetings, and run activities.'},
+   ],
+   tip:'Know your troop\'s SPL name. Naming real people shows real engagement.'},
+  {grp:null,id:'2b',badge:'g',
+   title:'The four steps of Scout advancement',
+   quiz:'Describe the four steps of Scout advancement.',
+   img:{src:'scout-assets/how_scout_advancement_works_infographic.png',lbl:'How Scout Advancement Works infographic',note:null},
+   blocks:[
+     {c:'g',lbl:'The four steps — memorize these',tx:'1. LEARN the skill or knowledge\n2. BE TESTED — demonstrate it to a leader\n3. BE REVIEWED — Scoutmaster conference\n4. BE RECOGNIZED — board of review, then receive the rank'},
+   ],
+   tip:'The Scoutmaster may ask you to list these. Know them in order.'},
+  {grp:null,id:'2c',badge:'g',
+   title:'Scouts BSA ranks and how they are earned',
+   quiz:'List all Scouts BSA ranks in order. Describe how ranks are earned.',
+   blocks:[
+     {c:'g',lbl:'The seven ranks in order',tx:'1. Scout\n2. Tenderfoot\n3. Second Class\n4. First Class\n5. Star\n6. Life\n7. Eagle Scout'},
+     {c:'g',lbl:'How ranks are earned',tx:'Complete the requirements, have them signed off, do your Scoutmaster conference, then a board of review.\n\nRanks must be awarded IN ORDER — but Scout, Tenderfoot, Second Class, and First Class can be worked on simultaneously.'},
+   ],
+   tip:'Memorize the seven ranks in order. Eagle is the goal — know why it matters.'},
+  {grp:null,id:'2d',badge:'g',
+   title:'Merit badges and how they are earned',
+   quiz:'Describe what merit badges are and how they are earned.',
+   blocks:[
+     {c:'g',lbl:'What they are',tx:'Awards earned by completing specific requirements in a subject area. Over 130 badges covering Archery, First Aid, Kayaking, Citizenship, Swimming, and more.'},
+     {c:'g',lbl:'How to earn one',tx:'1. Get a signed blue card from your Scoutmaster\n2. Contact a merit badge counselor (adult expert)\n3. Complete all requirements under their guidance\n4. Counselor signs the blue card\n5. Turn in the card and receive the badge'},
+     {c:'g',lbl:'Why they matter',tx:'Star = 6 badges. Life = 11. Eagle = 21 (13 are required). You\'re earning 4–5 at Camp Shenandoah this summer.'},
+   ],
+   tip:'You already know how this works — you\'re earning badges at camp. Tell the Scoutmaster that.'},
+  {grp:'Requirement 3 — Patrol Method',id:'3a',badge:'g',
+   title:'The patrol method',
+   quiz:'Explain the patrol method. Describe the types of patrols used in your troop.',
+   img:{src:'scout-assets/patrol_method_in_scouting_explained.png',lbl:'Patrol Method infographic',note:null},
+   img2:{src:'scout-assets/scout_uniform_guide_for_young_scouts.png',lbl:'About Your Uniform — for Scoutmaster conference prep',note:null},
+   blocks:[
+     {c:'g',lbl:'What the patrol method is',tx:'Scouts are divided into small groups called patrols (usually 6–10 Scouts), each with their own leader, name, and identity. Patrols work, camp, and compete together.'},
+     {c:'g',lbl:'Types of patrols',tx:'• Regular patrols — mixed-age active Scouts\n• New Scout patrols — all new Scouts learning basics (likely yours)\n• Venture patrols — older Scouts (13+) with challenging activities'},
+     {c:'g',lbl:'Why it works',tx:'You can\'t hide in a patrol of 8. Everyone leads, everyone contributes, everyone is accountable.'},
+   ],
+   tip:'Know your patrol name, emblem, flag, and yell before your conference — you\'ll need it for 3b too. Ask your patrol leader at the next meeting.'},
+  {grp:null,id:'3b',badge:'g',
+   title:'Patrol spirit — name, emblem, flag & yell',
+   quiz:'Describe your patrol name, emblem, flag, and yell. Explain how these create patrol spirit.',
+   blocks:[
+     {c:'g',lbl:'What to know',tx:'This is specific to YOUR patrol — get it from your patrol leader:\n• Patrol name (e.g. "Eagle," "Wolf," "Hawk")\n• Patrol emblem (the patch design)\n• Patrol flag (what it looks like)\n• Patrol yell (the chant used at events)'},
+     {c:'g',lbl:'How they create patrol spirit',tx:'Shared symbols give the patrol an identity — something to rally around. They create pride, belonging, and friendly competition. A Scout who knows their patrol yell cold feels like part of the team.'},
+   ],
+   tip:'You must talk to your troop before the conference to get these details. Don\'t wait.'},
+  {grp:'Requirement 4 — Knots',id:'4a',badge:'g',
+   title:'Square knot, two half-hitches & taut-line hitch',
+   quiz:'Demonstrate tying a square knot, two half-hitches, and a taut-line hitch. Explain when each is used.',
+   img:{src:'scout-assets/scout_knot_and_rope_care_guide.png',lbl:'Scout Rank Requirements 4A & 4B — Knots and Rope Care',note:null},
+   videos:[
+     {id:'9t3hdyYfZUE',lbl:'BSA Req 4A — Knot Tying Tutorial'},
+     {id:'NugYLvUjVTA',lbl:'BSA Req 4A — Alternative Tutorial'},
+   ],
+   blocks:[
+     {c:'g',lbl:'Square Knot',tx:'Used for: joining two ropes of equal thickness, first aid bandages.\nHow to tie: "Right over left, left over right." Right end over left, under, then new left end over right, under. Pull tight — loops lay flat.'},
+     {c:'g',lbl:'Two Half-Hitches',tx:'Used for: tying a rope to a post, tree, or ring (hammock, boat).\nHow to tie: Loop around post. End over and through (half-hitch 1). Repeat (half-hitch 2). Pull snug.'},
+     {c:'g',lbl:'Taut-Line Hitch',tx:'Used for: tent guy lines — adjustable loop that holds under tension.\nHow to tie: Loop around stake. Two wraps inside the large loop (toward stake). One wrap outside, thread through. Slide to adjust.'},
+   ],
+   tip:'Practice with actual rope — you CANNOT just describe these. Keep a piece of paracord in your pocket and practice daily. Hands-on sign-off required.'},
+  {grp:null,id:'4b',badge:'g',
+   title:'Rope care — whipping & fusing',
+   quiz:'Show how to properly care for a rope. Demonstrate whipping and fusing.',
+   img:{src:'scout-assets/rope_care_for_scouts_and_adventurers.png',lbl:'Rope Care guide',note:null},
+   videos:[
+     {id:'FUou5sJqi2Q',lbl:'BSA Req 4B — Whipping & Fusing Tutorial'},
+   ],
+   blocks:[
+     {c:'g',lbl:'Why it matters',tx:'Rope ends fray. Frayed ends weaken the rope and make it unusable. Whipping and fusing seal the end.'},
+     {c:'g',lbl:'Whipping',tx:'Used on: natural fiber ropes (cotton, hemp, sisal — anything that burns instead of melting).\nHow to: Lay a loop of thin twine along the rope end. Wrap tightly toward the end, covering the loop tail. Thread working end through the loop. Pull the tail to cinch. Trim excess.'},
+     {c:'g',lbl:'Fusing',tx:'Used on: synthetic ropes (nylon, polyester, paracord — anything that melts cleanly).\nHow to: Hold rope end near a flame. Fibers melt — press the melted tip flat against a smooth surface before it hardens.\n\nNEVER fuse natural fiber rope — it burns, it doesn\'t melt.'},
+   ],
+   tip:'Practice at home: paracord (synthetic = fuse with lighter) and cotton twine (natural = whip). Hands-on sign-off required.'},
+  {grp:'Requirement 5 — Pocketknife Safety',id:'5',badge:'g',
+   title:'Safe and responsible pocketknife use',
+   quiz:'Tell what you need to know about using a pocketknife safely and responsibly.',
+   img:{src:'scout-assets/pocketknife_safety_guidelines_for_scouts.png',lbl:'Pocketknife Safety Basics infographic',note:null},
+   blocks:[
+     {c:'g',lbl:'Key rules',tx:'• Always cut AWAY from your body\n• Keep blade closed when not in use\n• Pass a knife closed, handle-first\n• No throwing, no horseplay\n• Sharp blades are safer — dull blades slip\n• Never use as a pry bar or screwdriver\n• Tools only — not playthings'},
+     {c:'g',lbl:'Blood circle',tx:'Before opening a knife: extend your arm and spin in a full circle. If you\'d reach anyone — you\'re too close. Clear it, then open.'},
+     {c:'g',lbl:'BSA policy',tx:'Sheath knives (hunting knives) are NOT permitted. Pocketknives only.\n\nTo carry a knife at camp you must also earn Totin\' Chip — see that tab.'},
+   ],
+   tip:'Knowledge-only for Scout rank (no demo required). But if earning Totin\' Chip, you\'ll demonstrate in person.'},
+  {grp:'Requirement 6 — Personal Safety',id:'6',badge:'b',
+   title:'Personal Safety Awareness (with parent/guardian)',
+   quiz:'Have you completed the Personal Safety Awareness videos with a parent or guardian?',
+   blocks:[
+     {c:'b',lbl:'What to do',tx:'Watch the BSA Personal Safety Awareness videos together with your parent or guardian.\n\nURL: scouting.org/training/youth-protection/scouts-bsa/\n\nCovers: recognizing and reporting abuse, online safety, personal boundaries. About 20–30 minutes.'},
+     {c:'b',lbl:'For the conference',tx:'Your Scoutmaster will ask if you completed this. A simple "Yes, I watched it with my dad" is all that\'s needed. The videos do the real work.'},
+   ],
+   tip:'Do this WITH your dad before the conference. Straightforward — not a test, just a video series.'},
+  {grp:'Requirement 7 — Scoutmaster Conference',id:'7',badge:'b',
+   title:'How to ace your Scoutmaster conference',
+   quiz:'What is the Scoutmaster conference and how should you approach it?',
+   img:{src:'scout-assets/scoutmaster_conference_prep_checklist.png',lbl:'Scoutmaster Conference Prep Checklist',note:null},
+   blocks:[
+     {c:'b',lbl:'What it actually is',tx:'A one-on-one conversation with the Scoutmaster. NOT a test. No required questions. It\'s a check-in — how are you doing, where do you want to go in Scouting?'},
+     {c:'b',lbl:'Likely questions',tx:'• "How did you end up in Scouts?"\n• "What requirements did you work on?"\n• "What did you enjoy? What was hardest?"\n• "What are you most excited to do next?"\n• "Are you having fun?"'},
+     {c:'b',lbl:'How to answer well',tx:'• Be honest — no wrong answers\n• Use real stories, not textbook answers\n• It\'s okay to say something was hard\n• Show you\'re thinking about what comes NEXT\n• Look the Scoutmaster in the eye, speak clearly\n• Don\'t rush — take a moment to think'},
+     {c:'b',lbl:'What NOT to do',tx:'• One-word answers ("Yes," "No," "Fine")\n• "I don\'t know" without trying\n• Acting like it\'s a chore\n• Being afraid to share something you\'re genuinely excited about'},
+     {c:'b',lbl:'Sample answers to practice',tx:'Q: "What was hardest?"\nA: "Memorizing the Scout Law — 12 points is a lot. I made up a rhythm to remember them."\n\nQ: "What are you looking forward to at camp?"\nA: "Kayaking, and honestly First Aid — that\'s useful in real life, not just Scouting."'},
+   ],
+   tip:'Go in relaxed, be real, show some enthusiasm. A Scout who\'s clearly thinking about what\'s next makes a Scoutmaster\'s day.'},
+];
+
+const totinReqs=[
+  {grp:'Totin\' Chip',id:'tc1',badge:'t',title:'What the Totin\' Chip is',
+   quiz:'What is the Totin\' Chip and what does it grant you?',
+   blocks:[
+     {c:'t',lbl:'What it is',tx:'A certification — like a license — granting you the right to carry and use woods tools: pocketknife, ax, and saw. Without it you cannot carry a knife at Scout activities.\n\n"Totin\' Rights" can be taken away for unsafe handling.'},
+     {c:'t',lbl:'The card system',tx:'Many troops use a 4-corner card. A corner is removed for each safety violation. Lose all 4 — rights are revoked until you retake training.'},
+   ],
+   tip:'"The Totin\' Chip grants me the right to carry and use woods tools, and those rights can be taken away if I fail to use them safely." Know that cold.'},
+  {grp:null,id:'tc2',badge:'t',title:'Pocketknife — safe handling & use',
+   quiz:'Demonstrate proper handling and use of a pocketknife. Key safety rules?',
+   blocks:[
+     {c:'t',lbl:'Key rules',tx:'• Cut AWAY from your body\n• Keep blade closed when not in use\n• Pass closed or handle-first — never blade-first\n• No prying, no screwdriving, no throwing\n• Sharp blades are safer\n• Clear blood circle every single time'},
+     {c:'t',lbl:'Blood circle',tx:'Extend arm, spin full circle. If you\'d reach anyone — too close. Clear it, then open the knife. Every time, without being reminded.'},
+   ],
+   tip:'Blood circle is the #1 thing leaders look for. Do it automatically.'},
+  {grp:null,id:'tc3',badge:'t',title:'Ax — safe handling & use',
+   quiz:'Demonstrate proper handling and use of an ax. Key safety rules?',
+   blocks:[
+     {c:'t',lbl:'Key rules',tx:'• Keep ax sheathed when not in use\n• Inspect: head tight on handle before use\n• Clear blood circle before every swing\n• Never use as a hammer\n• Kneel when splitting kindling — never hold wood in your hand\n• Two-hand grip while swinging\n• Say "ax coming" when carrying near others'},
+     {c:'t',lbl:'Ax yard & passing',tx:'Set up a dedicated area cleared of people. Only the user inside during use.\n\nPassing: head down, handle toward receiver. Say "ax coming." Receiver says "thank you" before passer lets go.'},
+   ],
+   tip:'Slow, deliberate movements earn trust. Speed is never the goal with an ax.'},
+  {grp:null,id:'tc4',badge:'t',title:'Saw — safe handling & use',
+   quiz:'Demonstrate proper handling and use of a folding saw. Key safety rules?',
+   blocks:[
+     {c:'t',lbl:'Key rules',tx:'• Folded or sheathed when not in use\n• Never touch the teeth\n• Smooth, even strokes — don\'t force it\n• Let the saw do the work\n• Secure the wood — never hold free-hand\n• Free hand well clear of cutting line'},
+     {c:'t',lbl:'Technique',tx:'Start with a few light pull strokes to create a notch, then use full smooth strokes. Free hand stays back — not just "out of the way," but truly clear.'},
+   ],
+   tip:'The saw causes more camp injuries than the ax because people get careless with it. Slow is fast.'},
+  {grp:null,id:'tc5',badge:'t',title:'Tools as tools — not playthings',
+   quiz:'Explain what it means to use woods tools as tools, not playthings.',
+   blocks:[
+     {c:'t',lbl:'What this means',tx:'Tools are for real camp tasks — cutting rope, firewood, brush. NEVER for:\n• Throwing at targets\n• Showing off or daring others\n• Aimless whittling\n• Threatening anyone'},
+     {c:'t',lbl:'The mindset',tx:'Every swing, every cut — you are responsible for what happens. Treat every tool as if it could seriously injure someone, because it can.'},
+   ],
+   tip:'This is attitude, not memorization. Leaders watch you all day, not just during sign-off.'},
+  {grp:null,id:'tc6',badge:'t',title:'Respect safety rules & protect others',
+   quiz:'What does it mean to protect others when using woods tools?',
+   blocks:[
+     {c:'t',lbl:'Protecting others',tx:'• Always know where people are before using any tool\n• Never rush with a blade\n• Speak up if you see unsafe tool use\n• Set a good example — younger Scouts copy what they see'},
+   ],
+   tip:'Scouts who earn lasting respect with tools are the ones who move slowly and call out hazards. That\'s real leadership.'},
+  {grp:null,id:'tc7',badge:'t',title:'Respect property & the Outdoor Code',
+   quiz:'Explain what it means to respect property when using woods tools.',
+   blocks:[
+     {c:'t',lbl:'Respecting property',tx:'• Cut living trees only with permission AND good reason\n• Ask before using dead trees for firewood\n• Never carve into structures, tables, or shelters\n• Clean up all scraps — leave the area better than you found it'},
+     {c:'t',lbl:'Outdoor Code connection',tx:'"Be conservation-minded" is the fourth line of the Outdoor Code. Using an ax on living trees without need violates that pledge directly.'},
+   ],
+   tip:'At camp: always ask a leader before cutting any tree. "I asked permission first" is always the right answer.'},
+];
+
+// ── INIT STATE ──────────────────────────────────────────────────────────────
+rankReqs.forEach(r=>{LR[r.id]=false;QR[r.id]={shown:false,knew:null};});
+totinReqs.forEach(r=>{LT[r.id]=false;QT[r.id]={shown:false,knew:null};});
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+const AR=()=>sec==='rank'?rankReqs:totinReqs;
+const AL=()=>sec==='rank'?LR:LT;
+const AQ=()=>sec==='rank'?QR:QT;
+const isTc=()=>sec==='totin';
+const col=()=>isTc()?'t':'g';
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;');}
+function nl(s){return esc(s).replace(/\n/g,'<br>');}
+function tsFmt(ts){const d=new Date(ts);return d.toLocaleDateString()+'  '+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});}
+function openLB(src,alt){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-img').alt=alt||'';
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── SECTION/MODE ─────────────────────────────────────────────────────────────
+function setSec(s){
+  sec=s;
+  ['rank','totin','results'].forEach(x=>document.getElementById('tab-'+x)?.classList.remove('active'));
+  document.getElementById('tab-'+s)?.classList.add('active');
+  const mb=document.getElementById('mbar');
+  mb.style.display=s==='results'?'none':'flex';
+  ['btn-study','btn-quiz'].forEach(id=>document.getElementById(id)?.classList.toggle('tb',isTc()));
+  updateProgress();render();
+}
+function setMode(m){
+  mode=m;
+  document.getElementById('btn-study').classList.toggle('active',m==='study');
+  document.getElementById('btn-quiz').classList.toggle('active',m==='quiz');
+  if(m==='quiz') logActivity('quiz_start','Started quiz: '+sec);
+  render();
+}
+function toggleCard(id){document.getElementById('card-'+id)?.classList.toggle('open');}
+
+function markLearned(id){
+  AL()[id]=!AL()[id];
+  const status=AL()[id]?'learned':'incomplete';
+  logActivity('study',id+' marked '+status);
+  sheetLog('study', id+' — '+status);
+  saveProgress();
+  updateProgress();
+  updateWelcome();
+  render();
+}
+function revealAnswer(id){
+  AQ()[id].shown=true;
+  logActivity('quiz_reveal','Revealed: '+id);
+  sheetLog('quiz_reveal', id);
+  saveProgress();
+  render();
+}
+function markKnew(id,val){
+  AQ()[id].knew=val;AL()[id]=val;
+  const result=val?'knew it':'needs practice';
+  logActivity('quiz_answer',id+' — '+result);
+  sheetLog('quiz_answer', id+' — '+result);
+  saveProgress();
+  updateProgress();
+  updateWelcome();
+  render();
+}
+
+function setNameAndRender(n){
+  setName(n);
+  sheetLog('identity','Name set: '+n);
+  saveProgress();
+  updateWelcome();
+  // After name is set, try to load their Firebase progress
+  loadProgress();
+}
+
+function updateProgress(){
+  if(sec==='results') return;
+  const L=AL(),R=AR();
+  const n=Object.values(L).filter(Boolean).length,tot=R.length;
+  const pct=tot?Math.round(n/tot*100):0;
+  document.getElementById('pb').style.width=pct+'%';
+  document.getElementById('pl').textContent=n+' / '+tot+' learned';
+  document.getElementById('psl').textContent=sec==='rank'?'Scout Rank':'Totin\' Chip';
+}
+
+// ── VIDEO TABS ───────────────────────────────────────────────────────────────
+const activeVid={};
+function setVidTab(reqId,idx){
+  activeVid[reqId]=idx;
+  const wrap=document.getElementById('vid-wrap-'+reqId);
+  if(!wrap) return;
+  const tabs=wrap.querySelectorAll('.vtab');
+  tabs.forEach((t,i)=>t.classList.toggle('active',i===idx));
+  const vf=wrap.querySelector('.vf');
+  const vids=wrap.dataset.vids?JSON.parse(wrap.dataset.vids):[];
+  if(vids[idx]) vf.innerHTML='<iframe src="https://www.youtube.com/embed/'+vids[idx].id+'?rel=0" allowfullscreen loading="lazy"></iframe>';
+}
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function render(){
+  const main=document.getElementById('main');
+  const gate=document.getElementById('name-gate');
+
+  // Show full-screen gate if no name selected — blocks everything
+  if(!getName()){
+    gate.style.display='flex';
+    document.getElementById('mbar').style.display='none';
+    return;
+  } else {
+    gate.style.display='none';
+    document.getElementById('mbar').style.display=sec==='results'?'none':'flex';
+  }
+
+  if(sec==='results'){renderResults();return;}
+  const reqs=AR(),L=AL(),Q=AQ(),tc=isTc(),c=col();
+  const allDone=reqs.every(r=>L[r.id]);
+  let html='';
+  if(tc){
+    html+='<div class="notice"><div class="nl">Hands-on requirement</div>TC2, TC3, and TC4 require a live DEMONSTRATION to a Scout leader. This guide prepares the knowledge — you must demonstrate in person.</div>';
+  } else {
+    html+='<div class="info"><div class="il">Full rank — all 7 requirements</div>Req 1–3 and 5–6 are knowledge-based. Req 4 (knots) requires hands-on practice and in-person sign-off. Req 7 coaching is in the last card.</div>';
+  }
+  if(allDone){
+    const allKnew=mode==='quiz'?reqs.every(r=>Q[r.id].knew===true):true;
+    html+='<div class="cb2 '+c+'"><div class="ic">&#9733;</div>';
+    if(mode==='quiz'&&allKnew) html+='<p>Ready for sign-off!</p><span>'+(tc?'Know all rules — go demonstrate the tools.':'Know all requirements — schedule your Scoutmaster conference.')+'</span>';
+    else if(mode==='quiz') html+='<p>Keep practicing!</p><span>Review the ones you missed and retry.</span>';
+    else html+='<p>All studied!</p><span>Switch to Quiz mode to test yourself.</span>';
+    html+='</div>';
+  }
+  let lastGrp=null;
+  if(mode==='study'){
+    reqs.forEach(r=>{
+      if(r.grp&&r.grp!==lastGrp){html+='<div class="sdiv">'+esc(r.grp)+'</div>';lastGrp=r.grp;}
+      const done=L[r.id];
+      html+='<div class="rc'+(done?' dk':'')+(tc?' tc':'')+'" id="card-'+r.id+'">';
+      html+='<div class="ch" onclick="toggleCard(\''+r.id+'\')">';
+      html+='<span class="rb '+r.badge+'">'+r.id+'</span>';
+      html+='<span class="ct">'+esc(r.title)+'</span>';
+      if(done) html+='<span style="color:'+(tc?'var(--bm)':'var(--gm)')+';font-size:16px">&#10003;</span>';
+      html+='<span class="cv">&#8964;</span></div>';
+      html+='<div class="cb">';
+      // image(s)
+      if(r.img){
+        html+='<div class="ig-wrap"><div class="ig-lbl'+(tc?' t':'')+'">&#128247; '+esc(r.img.lbl)+'</div>';
+        html+='<img src="'+r.img.src+'" alt="'+esc(r.img.lbl)+'" loading="lazy" onclick="openLB(\''+r.img.src+'\',\''+r.img.lbl.replace(/'/g,'')+'\')">'; 
+        if(r.img.note) html+='<div class="ig-note">'+esc(r.img.note)+'</div>';
+        html+='<div class="ig-hint">&#128269; Tap image to expand</div>';
+        html+='</div>';
+      }
+      if(r.img2){
+        html+='<div class="ig-wrap"><div class="ig-lbl'+(tc?' t':'')+'">&#128247; '+esc(r.img2.lbl)+'</div>';
+        html+='<img src="'+r.img2.src+'" alt="'+esc(r.img2.lbl)+'" loading="lazy" onclick="openLB(\''+r.img2.src+'\',\''+r.img2.lbl.replace(/'/g,'')+'\')">'; 
+        html+='<div class="ig-hint">&#128269; Tap image to expand</div>';
+        html+='</div>';
+      }
+      // video(s)
+      if(r.videos&&r.videos.length){
+        const vid0=r.videos[0];
+        const vidsJson=JSON.stringify(r.videos).replace(/"/g,'&quot;');
+        html+='<div class="vw"><div class="vl">&#9654; Tutorial video</div>';
+        if(r.videos.length>1){
+          html+='<div class="vtabs" id="vtabs-'+r.id+'">';
+          r.videos.forEach((v,i)=>html+='<button class="vtab'+(i===0?' active':'')+'" onclick="setVidTab(\''+r.id+'\','+i+')">Option '+(i+1)+'</button>');
+          html+='</div>';
+        }
+        html+='<div id="vid-wrap-'+r.id+'" data-vids="'+vidsJson+'">';
+        html+='<div class="vf"><iframe src="https://www.youtube.com/embed/'+vid0.id+'?rel=0" allowfullscreen loading="lazy" title="'+esc(vid0.lbl)+'"></iframe></div>';
+        html+='</div></div>';
+        activeVid[r.id]=0;
+      }
+      r.blocks.forEach(b=>{
+        html+='<div class="cblk"><div class="cl '+b.c+'">'+esc(b.lbl)+'</div><div class="cx '+b.c+'">'+nl(b.tx)+'</div></div>';
+      });
+      if(r.tip) html+='<div class="tip"><div class="tl">Tip</div>'+nl(r.tip)+'</div>';
+      html+='<button class="mkb'+(done?' dk '+c:'')+'" onclick="markLearned(\''+r.id+'\')">';
+      html+=done?'<span>&#10003;</span> Got it — mark incomplete':'Mark as learned';
+      html+='</button></div></div>';
+    });
+  } else {
+    reqs.forEach(r=>{
+      const qs=Q[r.id];
+      html+='<div class="qc"><div class="qbr"><span class="rb '+r.badge+'">'+r.id+'</span><span style="font-size:12px;color:'+(tc?'var(--bm)':'var(--tm)')+';font-weight:500">'+esc(r.title)+'</span></div>';
+      html+='<div class="qq">'+esc(r.quiz)+'</div>';
+      if(!qs.shown){
+        html+='<button class="rvb '+c+'" onclick="revealAnswer(\''+r.id+'\')">Say it out loud, then show answer</button>';
+      } else {
+        html+='<div class="aa sh">';
+        r.blocks.forEach(b=>{
+          html+='<div class="cblk"><div class="cl '+b.c+'">'+esc(b.lbl)+'</div><div class="cx '+b.c+'">'+nl(b.tx)+'</div></div>';
+        });
+        html+='<div class="kr">';
+        html+='<button class="kb ky'+(qs.knew===true?' sy':'')+'" onclick="markKnew(\''+r.id+'\',true)">&#10003; Knew it</button>';
+        html+='<button class="kb kn'+(qs.knew===false?' sn':'')+'" onclick="markKnew(\''+r.id+'\',false)">&#8635; Need practice</button>';
+        html+='</div></div>';
+      }
+      html+='</div>';
+    });
+  }
+  main.innerHTML=html;
+}
+
+function setNameAndRender(n){setName(n);render();}
+
+// ── RESULTS ──────────────────────────────────────────────────────────────────
+function renderResults(){
+  const main=document.getElementById('main');
+  const name=getName()||'Unknown';
+  const logs=getLogs();
+
+  // Stats
+  const rankTotal=rankReqs.length,tcTotal=totinReqs.length;
+  const rankDone=Object.values(LR).filter(Boolean).length;
+  const tcDone=Object.values(LT).filter(Boolean).length;
+  const quizAttempts=logs.filter(l=>l.type==='quiz_answer').length;
+  const quizPassed=logs.filter(l=>l.type==='quiz_answer'&&l.detail.includes('knew it')).length;
+
+  let html='';
+  html+='<div class="user-card">';
+  html+='<div class="user-avatar">'+esc(name.charAt(0))+'</div>';
+  html+='<div class="user-info"><div class="user-name">'+esc(name)+'</div>';
+  html+='<div class="user-device">'+esc(DEVICE)+' · Session: '+SID+'</div></div>';
+  html+='<button onclick="changeName()" style="font-size:11px;padding:4px 10px;border-radius:99px;border:1px solid var(--bo);background:transparent;color:var(--tm);cursor:pointer">Change</button>';
+  html+='</div>';
+
+  html+='<div class="stat-row">';
+  html+='<div class="stat-box"><div class="stat-num">'+rankDone+'/'+rankTotal+'</div><div class="stat-lbl">Rank reqs learned</div></div>';
+  html+='<div class="stat-box"><div class="stat-num">'+tcDone+'/'+tcTotal+'</div><div class="stat-lbl">Totin\' Chip learned</div></div>';
+  html+='<div class="stat-box"><div class="stat-num">'+(quizAttempts?Math.round(quizPassed/quizAttempts*100):0)+'%</div><div class="stat-lbl">Quiz pass rate</div></div>';
+  html+='</div>';
+
+  // Rank breakdown
+  html+='<div class="res-section">Scout Rank — Requirement detail</div>';
+  rankReqs.forEach(r=>{
+    const q=QR[r.id];
+    let badge,label;
+    if(LR[r.id]&&q.knew===true){badge='rb-pass';label='&#10003; Knew it';}
+    else if(q.knew===false){badge='rb-miss';label='&#8635; Needs practice';}
+    else if(LR[r.id]){badge='rb-pass';label='&#10003; Studied';}
+    else{badge='rb-todo';label='Not started';}
+    html+='<div class="res-row"><span class="res-req"><span style="font-size:11px;font-weight:500;color:var(--gm)">'+r.id+'</span> '+esc(r.title)+'</span>';
+    html+='<span class="res-badge '+badge+'">'+label+'</span></div>';
+  });
+
+  // Totin' Chip breakdown
+  html+='<div class="res-section">Totin\' Chip — Requirement detail</div>';
+  totinReqs.forEach(r=>{
+    const q=QT[r.id];
+    let badge,label;
+    if(LT[r.id]&&q.knew===true){badge='rb-pass';label='&#10003; Knew it';}
+    else if(q.knew===false){badge='rb-miss';label='&#8635; Needs practice';}
+    else if(LT[r.id]){badge='rb-pass';label='&#10003; Studied';}
+    else{badge='rb-todo';label='Not started';}
+    html+='<div class="res-row"><span class="res-req"><span style="font-size:11px;font-weight:500;color:var(--bm)">'+r.id+'</span> '+esc(r.title)+'</span>';
+    html+='<span class="res-badge '+badge+'">'+label+'</span></div>';
+  });
+
+  // Activity log
+  html+='<div class="res-section">Recent activity</div>';
+  if(logs.length===0){
+    html+='<div class="no-data">No activity logged yet. Start studying!</div>';
+  } else {
+    const recent=logs.slice(0,25);
+    recent.forEach(l=>{
+      const detail=l.detail||'';
+      html+='<div class="activity-item"><span>'+esc(detail)+'</span><span class="activity-time">'+tsFmt(l.ts)+'</span></div>';
+    });
+  }
+
+  html+='<button class="clear-btn" onclick="clearData()">Clear all progress & logs</button>';
+  main.innerHTML=html;
+}
+
+function changeName(){
+  localStorage.removeItem('scout_name');
+  render();
+}
+function clearData(){
+  if(confirm('Clear all progress and activity logs? This cannot be undone.')){
+    ['scout_log','scout_name','scout_sid'].forEach(k=>localStorage.removeItem(k));
+    rankReqs.forEach(r=>{LR[r.id]=false;QR[r.id]={shown:false,knew:null};});
+    totinReqs.forEach(r=>{LT[r.id]=false;QT[r.id]={shown:false,knew:null};});
+    setSec('rank');
+  }
+}
+
+// ── WELCOME & ENCOURAGEMENT ──────────────────────────────────────────────────
+function getFirstName(n){ return n==='DJ3'?'DJ3':n==='DJ'?'DJ':n; }
+
+function isFirstVisit(){
+  const visits=parseInt(localStorage.getItem('scout_visits')||'0');
+  if(visits===0){ localStorage.setItem('scout_visits','1'); return true; }
+  localStorage.setItem('scout_visits',String(visits+1));
+  return false;
+}
+
+function getEncouragement(pctRank, pctTotin){
+  const overall=Math.round((pctRank+pctTotin)/2);
+  if(overall===0)   return 'Let\'s get started — tap a requirement to begin.';
+  if(overall<15)    return 'Good start! Keep working through the requirements.';
+  if(overall<30)    return 'You\'re building momentum — keep it up!';
+  if(overall<50)    return 'Almost halfway there. You\'ve got this!';
+  if(overall<70)    return 'More than halfway done — excellent progress!';
+  if(overall<85)    return 'Nearly there. The Scoutmaster conference is in sight!';
+  if(overall<100)   return 'Almost ready for sign-off — finish strong!';
+  return            'Everything studied! Time to schedule your sign-off. Be Prepared! ⚜️';
+}
+
+function updateWelcome(){
+  const name=getName();
+  if(!name) return;
+  const fn=getFirstName(name);
+  const rankDone=Object.values(LR).filter(Boolean).length;
+  const totinDone=Object.values(LT).filter(Boolean).length;
+  const pctRank=Math.round(rankDone/rankReqs.length*100);
+  const pctTotin=Math.round(totinDone/totinReqs.length*100);
+  const el=document.getElementById('welcome-msg');
+  if(!el) return;
+  const first=isFirstVisit();
+  const greeting=first
+    ? 'Welcome, '+fn+'! Ready to get started?'
+    : 'Welcome back, '+fn+'! '+getEncouragement(pctRank,pctTotin);
+  el.textContent=greeting;
+}
+
+
+if('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/scout-study-guide/sw.js', {
+      scope: '/scout-study-guide/'
+    }).then(reg => {
+      console.log('SW registered:', reg.scope);
+
+      // Check for updates every time the app opens
+      reg.update();
+
+      // When a new SW is found, activate it immediately
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.postMessage({ type: 'SKIP_WAITING' });
+          }
+        });
+      });
+    }).catch(e => console.log('SW failed:', e));
+
+    // When new SW takes control, reload to get fresh version
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) {
+        refreshing = true;
+        window.location.reload();
+      }
+    });
+  });
+}
+
+// ── GOOGLE SHEETS TRACKING ───────────────────────────────────────────────────
+// FORM_URL: paste your Google Form submit URL here when ready
+// FIELD IDs: map to your form field entry IDs
+const GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfR2306WGwFo-VKUExN-dDb0Y06-9kwWUkXJ54JYVjeMmOeiA/formResponse';
+const GFORM_FIELDS = {
+  timestamp:  'entry.1484556030',
+  name:       'entry.516967220',
+  device:     'entry.1956166151',
+  session:    'entry.1570994094',
+  tab:        'entry.1693330531',
+  event_type: 'entry.1583117665',
+  detail:     'entry.936313950',
+  version:    'entry.1309253591',
+};
+
+const APP_VERSION = '260604.8';
+
+function sheetLog(eventType, detail) {
+  if (!GFORM_URL) return;
+  try {
+    const body = new FormData();
+    body.append(GFORM_FIELDS.timestamp,  new Date().toISOString());
+    body.append(GFORM_FIELDS.name,       getName() || 'Unknown');
+    body.append(GFORM_FIELDS.device,     DEVICE);
+    body.append(GFORM_FIELDS.session,    SID);
+    body.append(GFORM_FIELDS.tab,        'scout_study');
+    body.append(GFORM_FIELDS.event_type, eventType);
+    body.append(GFORM_FIELDS.detail,     detail);
+    body.append(GFORM_FIELDS.version,    APP_VERSION);
+    fetch(GFORM_URL, { method:'POST', mode:'no-cors', body });
+  } catch(e) { /* fail silently */ }
+}
+
+// ── FIREBASE BRIDGE ───────────────────────────────────────────────────────────
+// Firebase is loaded in a separate module script above and exposed via window._fb*
+// This keeps the main script as a regular script (required for inline onclick handlers)
+
+function getUserKey(name){ return name.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase(); }
+
+// Save full progress to Firebase + localStorage backup
+async function saveProgress() {
+  const name = getName();
+  if (!name) return;
+  const data = {
+    learnedR: LR, learnedT: LT,
+    quizR: QR, quizT: QT,
+    name: name, version: APP_VERSION,
+    saved: Date.now()
+  };
+  // Always save locally first (instant, works offline)
+  try {
+    localStorage.setItem('scout_progress_v1', JSON.stringify(data));
+    sessionStorage.setItem('scout_progress_v1', JSON.stringify(data));
+  } catch(e) {}
+  // Then sync to Firebase
+  if (window._fbReady && window._fbSave) {
+    try {
+      await window._fbSave(name, data);
+      console.log('Synced to Firebase');
+    } catch(e) {
+      console.log('Firebase save failed (offline?):', e.message);
+    }
+  }
+}
+
+// Load progress — local first for speed, then Firebase for cross-device
+async function loadProgress() {
+  const name = getName();
+  // Apply local immediately so app feels instant
+  try {
+    const local = localStorage.getItem('scout_progress_v1') || sessionStorage.getItem('scout_progress_v1');
+    if (local) applyProgress(JSON.parse(local));
+  } catch(e) {}
+
+  // Then check Firebase for newer cross-device state
+  if (name && window._fbReady && window._fbLoad) {
+    try {
+      const fbData = await window._fbLoad(name);
+      if (fbData) {
+        const localData = JSON.parse(localStorage.getItem('scout_progress_v1') || '{}');
+        if (!localData.saved || fbData.saved > localData.saved) {
+          applyProgress(fbData);
+          localStorage.setItem('scout_progress_v1', JSON.stringify(fbData));
+          console.log('Progress restored from Firebase:', new Date(fbData.saved).toLocaleString());
+        }
+      }
+    } catch(e) {
+      console.log('Firebase load failed (offline?) — using local:', e.message);
+    }
+  }
+  updateProgress();
+  updateWelcome();
+  render();
+}
+
+function applyProgress(data) {
+  if (!data) return;
+  if (data.learnedR) Object.keys(data.learnedR).forEach(k => { if(k in LR) LR[k] = data.learnedR[k]; });
+  if (data.learnedT) Object.keys(data.learnedT).forEach(k => { if(k in LT) LT[k] = data.learnedT[k]; });
+  if (data.quizR)    Object.keys(data.quizR).forEach(k =>    { if(k in QR) QR[k] = data.quizR[k]; });
+  if (data.quizT)    Object.keys(data.quizT).forEach(k =>    { if(k in QT) QT[k] = data.quizT[k]; });
+}
+
+// ── BOOT ─────────────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLB();});
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+logActivity('session_start','Opened study guide');
+sheetLog('session_start', 'Opened Scout Guide');
+loadProgress();
+</script>
+</body>
+</html>
