@@ -157,7 +157,7 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 </head>
 <body>
 <header>
-  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260604.2</div>
+  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260604.3</div>
   <div class="ey">Scouts BSA — Troop 1B Colonial Virginia Council</div>
   <h1>Scout Study Guide</h1>
   <div id="welcome-msg" style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:4px;min-height:18px;line-height:1.4"></div>
@@ -503,6 +503,7 @@ function markLearned(id){
   const status=AL()[id]?'learned':'incomplete';
   logActivity('study',id+' marked '+status);
   sheetLog('study', id+' — '+status);
+  saveProgress();
   updateProgress();
   updateWelcome();
   render();
@@ -511,6 +512,7 @@ function revealAnswer(id){
   AQ()[id].shown=true;
   logActivity('quiz_reveal','Revealed: '+id);
   sheetLog('quiz_reveal', id);
+  saveProgress();
   render();
 }
 function markKnew(id,val){
@@ -518,6 +520,7 @@ function markKnew(id,val){
   const result=val?'knew it':'needs practice';
   logActivity('quiz_answer',id+' — '+result);
   sheetLog('quiz_answer', id+' — '+result);
+  saveProgress();
   updateProgress();
   updateWelcome();
   render();
@@ -526,6 +529,7 @@ function markKnew(id,val){
 function setNameAndRender(n){
   setName(n);
   sheetLog('identity','Name set: '+n);
+  saveProgress();
   updateWelcome();
   render();
 }
@@ -828,7 +832,7 @@ const GFORM_FIELDS = {
   version:    'entry.1309253591',
 };
 
-const APP_VERSION = '260604.2';
+const APP_VERSION = '260604.3';
 
 function sheetLog(eventType, detail) {
   if (!GFORM_URL) return;
@@ -846,8 +850,63 @@ function sheetLog(eventType, detail) {
   } catch(e) { /* fail silently */ }
 }
 
+// ── PERSISTENT STORAGE ───────────────────────────────────────────────────────
+// Request persistent storage so Chrome won't wipe localStorage between sessions
+async function requestPersistentStorage() {
+  if (navigator.storage && navigator.storage.persist) {
+    const granted = await navigator.storage.persist();
+    console.log('Persistent storage:', granted ? 'granted' : 'denied');
+    return granted;
+  }
+  return false;
+}
+
+// Robust storage: writes to both localStorage AND sessionBackup in cache
+// so progress survives even if localStorage is wiped
+const STORAGE_KEY = 'scout_progress_v1';
+
+function saveProgress() {
+  try {
+    const data = {
+      learnedR: LR,
+      learnedT: LT,
+      quizR: QR,
+      quizT: QT,
+      name: getName(),
+      visits: localStorage.getItem('scout_visits') || '0',
+      sid: SID,
+      saved: Date.now()
+    };
+    const json = JSON.stringify(data);
+    localStorage.setItem(STORAGE_KEY, json);
+    // Also save to sessionStorage as immediate backup
+    sessionStorage.setItem(STORAGE_KEY, json);
+  } catch(e) { console.log('Save failed:', e); }
+}
+
+function loadProgress() {
+  try {
+    // Try localStorage first, fall back to sessionStorage
+    let json = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+    if (!json) return false;
+    const data = JSON.parse(json);
+    // Restore learned state
+    if (data.learnedR) Object.keys(data.learnedR).forEach(k => { if(k in LR) LR[k] = data.learnedR[k]; });
+    if (data.learnedT) Object.keys(data.learnedT).forEach(k => { if(k in LT) LT[k] = data.learnedT[k]; });
+    if (data.quizR) Object.keys(data.quizR).forEach(k => { if(k in QR) QR[k] = data.quizR[k]; });
+    if (data.quizT) Object.keys(data.quizT).forEach(k => { if(k in QT) QT[k] = data.quizT[k]; });
+    console.log('Progress restored from', new Date(data.saved).toLocaleString());
+    return true;
+  } catch(e) {
+    console.log('Load failed:', e);
+    return false;
+  }
+}
+
 // ── BOOT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLB();});
+requestPersistentStorage();
+loadProgress();
 logActivity('session_start','Opened study guide');
 sheetLog('session_start', 'Opened Scout Guide');
 updateWelcome();
