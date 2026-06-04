@@ -157,7 +157,7 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 </head>
 <body>
 <header>
-  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260603.8</div>
+  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260604.2</div>
   <div class="ey">Scouts BSA — Troop 1B Colonial Virginia Council</div>
   <h1>Scout Study Guide</h1>
   <div id="welcome-msg" style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:4px;min-height:18px;line-height:1.4"></div>
@@ -785,9 +785,31 @@ if('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/scout-study-guide/sw.js', {
       scope: '/scout-study-guide/'
-    })
-      .then(r => console.log('SW registered:', r.scope))
-      .catch(e => console.log('SW failed:', e));
+    }).then(reg => {
+      console.log('SW registered:', reg.scope);
+
+      // Check for updates every time the app opens
+      reg.update();
+
+      // When a new SW is found, activate it immediately
+      reg.addEventListener('updatefound', () => {
+        const newWorker = reg.installing;
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.postMessage({ type: 'SKIP_WAITING' });
+          }
+        });
+      });
+    }).catch(e => console.log('SW failed:', e));
+
+    // When new SW takes control, reload to get fresh version
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) {
+        refreshing = true;
+        window.location.reload();
+      }
+    });
   });
 }
 
@@ -803,10 +825,13 @@ const GFORM_FIELDS = {
   tab:        'entry.1693330531',
   event_type: 'entry.1583117665',
   detail:     'entry.936313950',
+  version:    'entry.1309253591',
 };
 
+const APP_VERSION = '260604.2';
+
 function sheetLog(eventType, detail) {
-  if (!GFORM_URL) return;  // not configured yet — skip silently
+  if (!GFORM_URL) return;
   try {
     const body = new FormData();
     body.append(GFORM_FIELDS.timestamp,  new Date().toISOString());
@@ -816,6 +841,7 @@ function sheetLog(eventType, detail) {
     body.append(GFORM_FIELDS.tab,        'scout_study');
     body.append(GFORM_FIELDS.event_type, eventType);
     body.append(GFORM_FIELDS.detail,     detail);
+    body.append(GFORM_FIELDS.version,    APP_VERSION);
     fetch(GFORM_URL, { method:'POST', mode:'no-cors', body });
   } catch(e) { /* fail silently */ }
 }

@@ -1,4 +1,4 @@
-const CACHE = 'scout-guide-v260603';
+const CACHE = 'scout-guide-v260604';
 const BASE = '/scout-study-guide';
 
 const PRECACHE = [
@@ -22,31 +22,41 @@ const PRECACHE = [
   BASE + '/scout-assets/flag_ceremony_basics_for_scouts.png',
 ];
 
-// Install — pre-cache all app assets
+// Install — pre-cache all assets
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE)
       .then(cache => cache.addAll(PRECACHE))
-      .then(() => self.skipWaiting())
+      .then(() => self.skipWaiting()) // activate immediately, don't wait
   );
 });
 
-// Activate — clean up old caches
+// Activate — wipe old caches, claim all clients immediately
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
       .then(keys => Promise.all(
         keys.filter(k => k !== CACHE).map(k => caches.delete(k))
       ))
-      .then(() => self.clients.claim())
+      .then(() => self.clients.claim()) // take control of all open tabs now
   );
 });
 
-// Fetch — cache-first for app assets, network-first for Google/YouTube
+// Message handler — allows the page to trigger skipWaiting
+self.addEventListener('message', e => {
+  if (e.data && e.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+// Fetch strategy:
+// - Google/YouTube/Fonts: always network (tracking + embeds)
+// - index.html: network-first (always try to get latest version)
+// - Everything else: cache-first (fast, assets don't change often)
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 
-  // Always network for Google Forms and YouTube
+  // Always network for external services
   if (url.hostname.includes('google.com') ||
       url.hostname.includes('googleapis.com') ||
       url.hostname.includes('youtube.com') ||
@@ -59,7 +69,29 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Cache-first for everything else
+  // Network-first for the main HTML file — ensures latest version always loads
+  if (url.pathname === BASE + '/' ||
+      url.pathname === BASE + '/index.html' ||
+      url.pathname === BASE) {
+    e.respondWith(
+      fetch(e.request)
+        .then(response => {
+          // Cache the fresh version
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE).then(cache => cache.put(e.request, clone));
+          }
+          return response;
+        })
+        .catch(() => {
+          // Offline fallback — serve cached version
+          return caches.match(BASE + '/index.html');
+        })
+    );
+    return;
+  }
+
+  // Cache-first for all other assets (images, icons, manifest)
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
