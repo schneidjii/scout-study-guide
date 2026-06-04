@@ -157,7 +157,7 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
 </head>
 <body>
 <header>
-  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260604.5</div>
+  <div style="position:absolute;top:10px;right:12px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.3)">v 260604.6</div>
   <div class="ey">Scouts BSA — Troop 1B Colonial Virginia Council</div>
   <h1>Scout Study Guide</h1>
   <div id="welcome-msg" style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:4px;min-height:18px;line-height:1.4"></div>
@@ -196,12 +196,11 @@ header p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
   <div class="lb-hint">Tap anywhere to close</div>
 </div>
 
-<script type="module">
-// ── FIREBASE ──────────────────────────────────────────────────────────────────
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getDatabase, ref, set, get } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
-
-const firebaseConfig = {
+<!-- Firebase via CDN compat (non-module, globally available) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+firebase.initializeApp({
   apiKey: "AIzaSyAFky57CziUVpPtwBkE8CNUxqHfrApzPB4",
   authDomain: "schneider-apps.firebaseapp.com",
   databaseURL: "https://schneider-apps-default-rtdb.firebaseio.com",
@@ -209,27 +208,18 @@ const firebaseConfig = {
   storageBucket: "schneider-apps.firebasestorage.app",
   messagingSenderId: "680708968242",
   appId: "1:680708968242:web:80529bfb2ac352ee42112b"
-};
-
-const fbApp = initializeApp(firebaseConfig);
-const db = getDatabase(fbApp);
-
-// Expose Firebase functions to global scope so main script can use them
+});
+const _fbDb = firebase.database();
 window._fbReady = true;
 window._fbSave = async function(name, data) {
   const key = name.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
-  await set(ref(db, 'scout_study/' + key + '/progress'), data);
+  await _fbDb.ref('scout_study/' + key + '/progress').set(data);
 };
 window._fbLoad = async function(name) {
   const key = name.replace(/[^a-zA-Z0-9]/g,'_').toLowerCase();
-  const snap = await get(ref(db, 'scout_study/' + key + '/progress'));
+  const snap = await _fbDb.ref('scout_study/' + key + '/progress').get();
   return snap.exists() ? snap.val() : null;
 };
-
-// Boot the main app once Firebase is ready
-window._bootDone = true;
-if (window._appBoot) window._appBoot();
-else window.addEventListener('load', () => { if(window._appBoot) window._appBoot(); });
 </script>
 
 <script>
@@ -868,7 +858,7 @@ const GFORM_FIELDS = {
   version:    'entry.1309253591',
 };
 
-const APP_VERSION = '260604.5';
+const APP_VERSION = '260604.6';
 
 function sheetLog(eventType, detail) {
   if (!GFORM_URL) return;
@@ -958,18 +948,11 @@ function applyProgress(data) {
 }
 
 // ── BOOT ─────────────────────────────────────────────────────────────────────
-// _appBoot is called by the Firebase module script once Firebase is ready
-// If Firebase loads after main script, boot immediately with local data
-window._appBoot = function() {
-  document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLB();});
-  if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
-  logActivity('session_start','Opened study guide');
-  sheetLog('session_start', 'Opened Scout Guide');
-  loadProgress();
-};
-
-// Fallback: if Firebase module hasn't fired _appBoot yet, boot anyway after 1.5s
-setTimeout(() => { if (!window._bootDone) { window._bootDone=true; window._appBoot(); } }, 1500);
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeLB();});
+if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+logActivity('session_start','Opened study guide');
+sheetLog('session_start', 'Opened Scout Guide');
+loadProgress();
 </script>
 </body>
 </html>
