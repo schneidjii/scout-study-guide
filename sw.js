@@ -1,4 +1,4 @@
-const CACHE = 'scout-guide-v260604';
+const CACHE = 'scout-guide-v260604b';
 const BASE = '/scout-study-guide';
 
 const PRECACHE = [
@@ -59,6 +59,9 @@ self.addEventListener('fetch', e => {
   // Always network for external services
   if (url.hostname.includes('google.com') ||
       url.hostname.includes('googleapis.com') ||
+      url.hostname.includes('gstatic.com') ||
+      url.hostname.includes('firebaseio.com') ||
+      url.hostname.includes('firebaseapp.com') ||
       url.hostname.includes('youtube.com') ||
       url.hostname.includes('ytimg.com') ||
       url.hostname.includes('fonts.googleapis.com') ||
